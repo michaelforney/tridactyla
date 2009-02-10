@@ -1,0 +1,14 @@
+# Copyright (c) 2008 Alexander Færøy <eroyf@eroyf.org>
+# Distributed under the terms of the GNU General Public License v2
+
+SUPPORTED_AUTOCONF=( 2.5 )
+SUPPORTED_AUTOMAKE=( 1.10 )
+
+SCM_REPOSITORY="git://anongit.freedesktop.org/git/mesa/drm"
+REVISION="b9ed0f995077f69ae806aae2e83085738ea5e651"
+require ${PN} autotools scm-git
+
+DOWNLOADS=""
+
+PLATFORMS="~amd64 ~ppc64 ~x86"
+

@@ -1,0 +1,22 @@
+# Copyright 2008 Ingmar Vanhassel <ingmar@exherbo.org>
+# Distributed under the terms of the GNU General Public License v2
+
+SUMMARY="Direct Rendering Manager library for X.org"
+HOMEPAGE="http://dri.freedesktop.org/wiki/"
+DOWNLOADS="http://dri.freedesktop.org/libdrm/${PNV}.tar.bz2"
+
+BUGS_TO="xorg@exherbo.org"
+
+LICENCES="FIXME"
+SLOT="0"
+MYOPTIONS=""
+
+DEPENDENCIES="
+    build+run:
+        dev-libs/libpthread-stubs
+"
+# Fails when X is running
+RESTRICT="test"
+
+DEFAULT_SRC_CONFIGURE_PARAMS=( --enable-udev )
+
