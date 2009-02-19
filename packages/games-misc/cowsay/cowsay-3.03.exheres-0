@@ -14,18 +14,18 @@ DEPENDENCIES="
     	>=dev-lang/perl-5"
 
 src_unpack() {
-    unpack ${A}
-    cd "${S}"
+    unpack ${ARCHIVES}
+    cd "${WORK}"
     sed     -i \
         -e '1 c\#!/usr/bin/perl'\
         -e 's/\$version/\$VERSION/g'\
-        -e "s:%PREFIX%/share/cows:/usr/share/${P}/cows:" \
+        -e "s:%PREFIX%/share/cows:/usr/share/${PNV}/cows:" \
         -e '/getopts/ i\$Getopt::Std::STANDARD_HELP_VERSION=1;' cowsay \
         || die "sed cowsay failed"
     sed -i \
-        -e "s|%PREFIX%/share/cows|/usr/share/${P}/cows|" cowsay.1 \
+        -e "s|%PREFIX%/share/cows|/usr/share/${PNV}/cows|" cowsay.1 \
         || die "sed cowsay.1 failed"
-    #epatch "${FILESDIR}/${P}"-tongue.patch
+    #epatch "${FILESDIR}/${PNV}"-tongue.patch
 }
 
 src_install() {
@@ -33,7 +33,7 @@ src_install() {
     doman cowsay.1
     dosym cowsay /usr/bin/cowthink
     dosym cowsay.1 /usr/share/man/man1/cowthink.1
-    dodir /usr/share/${P}/cows
-    cp -r cows "${IMAGE}"/usr/share/${P}/ || die "cp failed"
-    #dobashcompletion "${FILESDIR}"/${PN}.bashcomp
+    dodir /usr/share/${PNV}/cows
+    cp -r cows "${IMAGE}"/usr/share/${PNV}/ || die "cp failed"
+    #dobashcompletion "${FILES}"/${PN}.bashcomp
 }
