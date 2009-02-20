@@ -1,0 +1,41 @@
+# Copyright 1999-2008 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Header: /var/cvsroot/gentoo-x86/media-libs/gavl/gavl-1.0.1.ebuild,v 1.1 2008/11/25 17:32:10 ssuominen Exp $
+
+require autotools [ supported_autoconf=[ 2.5 ] supported_automake=[ 1.10 ] ]
+
+SUMMARY="library for handling uncompressed audio and video data"
+HOMEPAGE="http://gmerlin.sourceforge.net"
+DOWNLOADS="mirror://sourceforge/gmerlin/${PNV}.tar.gz"
+
+LICENCES="GPL-2"
+SLOT="0"
+PLATFORMS="~amd64 ~x86"
+MYOPTIONS="doc"
+
+DEPENDENCIES="
+	build:
+		doc? ( app-doc/doxygen )"
+
+DEFAULT_SRC_INSTALL_EXTRA_DOCS="AUTHORS README TODO"
+
+#src_unpack() {
+	#unpack ${ARCHIVES}
+	#cd "${WORK}"
+	#epatch "${FILES}"/${PNV}-cflags.patch
+	#sed -i -e "s:-mfpmath=387::g" configure.ac || die "sed failed."
+#}
+src_prepare() {
+	#epatch "${FILESDIR}"/${P}-cflags.patch
+	sed -i -e "s:-mfpmath=387::g" configure.ac || die "sed failed."
+	AT_M4DIR="m4" eautoreconf                                      
+}
+
+src_configure() {
+	econf \
+		$(option_with doc doxygen) \
+		--disable-libpng \
+		--without-cpuflags \
+		--disable-dependency-tracking \
+		--docdir=/usr/share/doc/${PF}/html
+}

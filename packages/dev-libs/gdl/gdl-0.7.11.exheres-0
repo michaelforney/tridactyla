@@ -1,0 +1,35 @@
+# Copyright 1999-2008 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Header: /var/cvsroot/gentoo-x86/dev-libs/gdl/gdl-0.7.11.ebuild,v 1.5 2008/09/25 16:28:03 jer Exp $
+
+require gnome-2
+
+SUMMARY="The Gnome Devtool Libraries"
+HOMEPAGE="http://www.gnome.org/"
+
+#LICENSE="LGPL-2"
+SLOT="0"
+PLATFORMS="alpha ~amd64 hppa ia64 ~ppc ~ppc64 sparc ~x86"
+MYOPTIONS="gnome"
+
+DEPENDENCIES="
+	build+run:
+		>=dev-libs/glib-2
+		>=x11-libs/gtk+-2.4
+		>=dev-libs/libxml2-2.4
+		>=gnome-platform/libglade-2.0
+		gnome? (
+			>=gnome-base/libgnomeui-2.6
+			>=gnome-base/gnome-vfs-2.6
+			>=gnome-base/gconf-2
+		)
+	run:
+		dev-util/pkg-config
+		>=dev-util/intltool-0.35"
+
+DEFAULT_SRC_INSTALL_EXTRA_DOCS="AUTHORS ChangeLog MAINTAINERS NEWS README"
+
+src_configure() {
+    econf \
+	$(option_enable gnome)
+}
