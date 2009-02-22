@@ -1,0 +1,27 @@
+# Copyright 2009 Michael Forney
+# Distributed under the terms of the GNU General Public License v2
+
+SUMMARY="Software codec for dv-format video (camcorders etc)"
+HOMEPAGE="http://libdv.sourceforge.net/"
+DOWNLOADS="mirror://sourceforge/${PN}/${P}.tar.gz
+	mirror://gentoo/${PN}-1.0.0-pic.patch.bz2"
+
+LICENCES="GPL-2"
+SLOT="0"
+PLATFORMS="amd64 x86"
+MYOPTIONS="debug sdl xv gtk"
+
+DEPENDENCIES="
+    build+run:
+        dev-libs/popt
+        sdl? ( >=media-libs/libsdl-1.2.5 )
+        xv? ( x11-libs/libXv )
+        gtk? ( x11-libs/gtk+ )
+    build:
+	dev-util/pkg-config"
+
+
+DEFAULT_SRC_CONFIGURE_OPTION_WITHS=(debug)
+DEFAULT_SRC_CONFIGURE_OPTION_ENABLES=(sdl xv gtk)
+
+DEFAULT_SRC_INSTALL_EXTRA_DOCS="AUTHORS ChangeLog INSTALL NEWS README* TODO"
