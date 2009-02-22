@@ -33,7 +33,7 @@ DEPENDENCIES="
         media-libs/freetype
         media/ffmpeg
 	opengl? ( x11-dri/mesa )
-        media/mjpegtools
+        media-video/mjpegtools
         media-libs/openexr
 	x11-libs/libX11
 	x11-libs/libXv
