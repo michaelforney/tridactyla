@@ -19,23 +19,8 @@ DEPENDENCIES="
 
 DEFAULT_SRC_INSTALL_EXTRA_DOCS="AUTHORS README TODO"
 
-#src_unpack() {
-	#unpack ${ARCHIVES}
-	#cd "${WORK}"
-	#epatch "${FILES}"/${PNV}-cflags.patch
-	#sed -i -e "s:-mfpmath=387::g" configure.ac || die "sed failed."
-#}
-src_prepare() {
-	#epatch "${FILESDIR}"/${P}-cflags.patch
-	sed -i -e "s:-mfpmath=387::g" configure.ac || die "sed failed."
-	AT_M4DIR="m4" eautoreconf                                      
-}
+AT_M4DIR="m4"
 
-src_configure() {
-	econf \
-		$(option_with doc doxygen) \
-		--disable-libpng \
-		--without-cpuflags \
-		--disable-dependency-tracking \
-		--docdir=/usr/share/doc/${PF}/html
-}
+DEFAULT_SRC_CONFIGURE_OPTIONS=(--disable-libpng --without-cpuflags --disable-dependency-tracking --docdir=/usr/share/doc/${PF}/html)
+DEFAULT_SRC_CONFIGURE_OPTION_WITHS=('doc doxygen')
+

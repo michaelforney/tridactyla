@@ -1,15 +1,12 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 2009 Michael Forney
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-libs/gdl/gdl-0.7.11.ebuild,v 1.5 2008/09/25 16:28:03 jer Exp $
-
-require gnome-2
 
 SUMMARY="The Gnome Devtool Libraries"
 HOMEPAGE="http://www.gnome.org/"
 
-#LICENSE="LGPL-2"
+LICENCES="LGPL-2"
 SLOT="0"
-PLATFORMS="alpha ~amd64 hppa ia64 ~ppc ~ppc64 sparc ~x86"
+PLATFORMS="~amd64 ~x86"
 MYOPTIONS="gnome"
 
 DEPENDENCIES="
@@ -29,7 +26,5 @@ DEPENDENCIES="
 
 DEFAULT_SRC_INSTALL_EXTRA_DOCS="AUTHORS ChangeLog MAINTAINERS NEWS README"
 
-src_configure() {
-    econf \
-	$(option_enable gnome)
-}
+DEFAULT_SRC_CONFIGURE_OPTION_ENABLES=(gnome)
+
