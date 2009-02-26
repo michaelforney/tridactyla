@@ -13,41 +13,41 @@ MYOPTIONS="static mmx oss 3dnow altivec alsa esd freetype opengl ieee1394 css"
 
 DEPENDENCIES="
     build+run:
-	media-libs/a52dec                                                                
-        media-libs/faad2                                                             
-        sci-libs/fftw                                                              
-        media-sound/lame                                                              
+    media-libs/a52dec
+        media-libs/faad2
+        sci-libs/fftw
+        media-sound/lame
         ieee1394? (
-	    media-libs/libraw1394
-	    media-libs/libdc1394
-	)
-	media-libs/libsndfile                                             
-        media-libs/libvorbis                                                  
-        media-libs/libogg      
+        media-libs/libraw1394
+        media-libs/libdc1394
+    )
+    media-libs/libsndfile
+        media-libs/libvorbis
+        media-libs/libogg
         media-libs/libtheora
         media-libs/x264
         media-libs/libdv
-        media-libs/libpng                                                            
-        media-libs/jpeg                                                           
-        media-libs/tiff      
+        media-libs/libpng
+        media-libs/jpeg
+        media-libs/tiff
         media-libs/freetype
         media/ffmpeg
-	opengl? ( x11-dri/mesa )
+    opengl? ( x11-dri/mesa )
         media-video/mjpegtools
         media-libs/openexr
-	x11-libs/libX11
-	x11-libs/libXv
-	x11-libs/libXxf86vm
-	x11-libs/libXext
-	x11-libs/libXvMC
-	x11-libs/libXft                 
-        esd? ( media-sound/esound )                                                           
+    x11-libs/libX11
+    x11-libs/libXv
+    x11-libs/libXxf86vm
+    x11-libs/libXext
+    x11-libs/libXvMC
+    x11-libs/libXft
+        esd? ( media-sound/esound )
         alsa? ( sys-sound/alsa-lib )
     build:
-	dev-util/pkg-config
-	mmx? ( dev-lang/nasm )"
+    dev-util/pkg-config
+    mmx? ( dev-lang/nasm )"
 
-DEFAULT_SRC_CONFIGURE_OPTIONS=(--with-external-ffmpeg)
+DEFAULT_SRC_CONFIGURE_OPTION_PARAMS=(--with-external-ffmpeg)
 DEFAULT_SRC_CONFIGURE_OPTION_ENABLES=(static alsa esd oss mmx 3dnow 'ieee1394 firewire' css opengl altivec)
 
 AT_M4DIR="m4"

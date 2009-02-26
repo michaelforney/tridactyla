@@ -5,7 +5,7 @@ require kde4
 
 SUMMARY="Kwave is a sound editor designed for the KDE Desktop Environment"
 HOMEPAGE="http://kwave.sourceforge.net/"
-DOWNLOADS="mirror://sourceforge/kwave/${PNV}.tar.bz2"
+DOWNLOADS="mirror://sourceforge/kwave/${PNV}-1.tar.bz2"
 
 LICENCES="GPL-2"
 SLOT="4"
