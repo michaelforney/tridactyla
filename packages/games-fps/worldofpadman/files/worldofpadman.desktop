@@ -1,0 +1,9 @@
+[Desktop Entry]
+    Version=1.0
+    Name=World of Padman
+    Type=Application
+    Comment=A cartoon style multiplayer first-person shooter
+    Exec=worldofpadman
+    TryExec=worldofpadman
+    Icon=A cartoon style multiplayer first-person shooter
+    Categories=ActionGame

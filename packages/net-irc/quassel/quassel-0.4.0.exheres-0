@@ -1,0 +1,88 @@
+# Copyright 2008 Michael Forney
+# Distributed under the terms of the GNU General Public License v2
+# Based in part upon 'quassel-0.4.0-r1.ebuild' from Gentoo, which is:
+#     Copyright 1999-2009 Gentoo Foundation
+
+require cmake
+
+SUMMARY="Qt4/KDE4 IRC client suppporting a remote daemon for 24/7 connectivity."
+HOMEPAGE="http://quassel-irc.org"
+DOWNLOADS="http://quassel-irc.org/pub/${PNV}.tar.bz2"
+
+LANGS="cs da de fr hu nb_NO ru sl tr"
+
+LICENCES="GPL-2"
+SLOT="0"
+PLATFORMS="~amd64 ~x86"
+MYOPTIONS="
+    dbus
+    kde
+    monolithic
+    oxygen
+    phonon
+    server
+    ssl
+    webkit
+    X
+    ( X monolithic server ) [[ number-selected = at-least-one ]]
+    
+    linguas: ${LANGS}
+    "
+
+DEPENDENCIES="
+    build+run:
+        x11-libs/qt:4
+        dbus? ( x11-libs/qt:4[dbus] )
+        monolithic? (
+            x11-libs/qt:4[sqlite]
+            x11-libs/qt:4[X]
+            kde? ( kde/kdelibs:4 )
+            phonon? ( media-libs/phonon )
+            webkit? ( x11-libs/qt:4[webkit] )
+        )
+        X? (
+        )
+        server? (
+            x11-libs/qt:4[sqlite]
+        )
+        ssl? (
+            dev-libs/openssl
+            x11-libs/qt:4[ssl]
+        )
+        webkit? ( x11-libs/qt:4[webkit] )"
+
+CMAKE_SRC_CONFIGURE_OPTION_WANTS=(
+    'X QTCLIENT'
+    'server CORE'
+    'monolithic MONO'
+)
+CMAKE_SRC_CONFIGURE_OPTION_WITHS=(
+    'webkit WEBKIT'
+    'phonon PHONON'
+    'kde KDE'
+    'dbus DBUS'
+    'ssl OPENSSL'
+    'oxygen OXYGEN'
+)
+
+src_configure() {
+    for lang in ${LANGS}; do
+        option "linguas:${lang}" && QUASSELLANGS="${lang} ${QUASSELLANGS}"
+    done
+    CMAKE_SRC_CONFIGURE_PARAMS=(-DEMBED_DATA=OFF -DLINGUAS=${QUASSELLANGS})
+    cmake_src_configure
+}
+
+src_install() {
+    if option server
+    then
+        newinitd "${FILES}"/quasselcore-2.init quasselcore || die "newinitd failed"
+        newconfd "${FILES}"/quasselcore-2.conf quasselcore || die "newconfd failed"
+        insinto /usr/share/doc/${PNVR}
+        doins "${WORK}"/scripts/manageusers.py || die "installing manageusers.py failed"
+    fi
+
+    cmake_src_install
+}
+
+

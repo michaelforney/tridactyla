@@ -1,0 +1,33 @@
+# Copyright 2008 Michael Forney
+# Distributed under the terms of the GNU General Public License v2
+
+SUMMARY="Smart Common Input Method (SCIM) is an Input Method (IM) development platform"
+HOMEPAGE="http://www.scim-im.org"
+DOWNLOADS="mirror://sourceforge/scim/${PNV}.tar.gz"
+
+LICENCES="GPL-2"
+SLOT="0"
+PLATFORMS=""
+MYOPTIONS="doc"
+
+DEPENDENCIES="
+    build+run:
+        x11-libs/libX11
+        x11-libs/gtk+:2
+        dev-libs/atk
+        >=x11-libs/pango-1
+        dev-libs/glib:2
+    build:
+        x11-libs/libXt
+        doc? (
+            app-doc/doxygen
+            >=app-text/docbook-xsl-stylesheets-1.73.1
+        )
+        dev-lang/perl
+        dev-util/pkg-config
+        >=dev-util/intltool-0.33
+        sys-devel/libtool"
+
+DEFAULT_SRC_COMPILE_OPTION_WITHS=('doc doxygen')
+
+DEFAULT_SRC_INSTALL_EXTRA_DOCS="README AUTHORS ChangeLog docs/developers docs/scim.cfg"
