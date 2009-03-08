@@ -14,12 +14,12 @@ MYOPTIONS=""
 DEPENDENCIES="
     build+run:
         x11-libs/gtk+
-	gnome-bindings/gtkmm
-	dev-cpp/cairomm
-	gnome-desktop/librsvg
-	dev-libs/gdl
-	media-libs/gavl
-	dev-libs/boost
-	dev-libs/nobug"
+        gnome-bindings/gtkmm
+        dev-cpp/cairomm
+        gnome-desktop/librsvg
+        dev-libs/gdl
+        media-libs/gavl
+        dev-libs/boost
+        dev-libs/nobug"
 
-
+AT_M4DIR="m4"

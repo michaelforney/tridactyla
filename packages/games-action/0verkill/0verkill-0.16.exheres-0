@@ -1,0 +1,31 @@
+# Copyright 2008 Michael Forney
+# Distributed under the terms of the GNU General Public License v2
+
+SUMMARY="a bloody 2D action deathmatch-like game in ASCII-ART"
+HOMEPAGE="http://artax.karlin.mff.cuni.cz/~brain/0verkill/"
+DOWNLOADS="http://artax.karlin.mff.cuni.cz/~brain/0verkill/release/0verkill-0.16.tgz"
+
+LICENCES="GPL-2"
+SLOT="0"
+PLATFORMS="~amd64 ~x86"
+MYOPTIONS="X"
+
+DEPENDENCIES="
+    build+run:
+        X? ( x11-libs/libX11 )"
+
+DEFAULT_SRC_CONFIGURE_OPTION_WITHS=('X x')
+
+src_install() {
+    dobin 0verkill
+    local bin
+    for bin in avi bot editor server test_server ; do
+        newbin ${bin} 0verkill-${bin} || die ${bin}
+    done
+    if option X ; then
+        dobin x0verkill || die
+    fi
+
+    insinto "/usr/share/${PN}"
+    doins -r data grx || die
+}

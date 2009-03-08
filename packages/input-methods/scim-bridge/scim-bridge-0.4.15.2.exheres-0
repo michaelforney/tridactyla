@@ -14,7 +14,7 @@ MY_PNV=${PNV/.2/}
 
 DEPENDENCIES="
     build+run:
-        >=input-method/scim-1.4.6
+        >=input-methods/scim-1.4.6
         gtk? (
             >=x11-libs/gtk+-2.2
             >=x11-libs/pango-1.1

@@ -1,0 +1,25 @@
+# Copyright 2008 Michael Forney
+# Distributed under the terms of the GNU General Public License v2
+
+SCM_REPOSITORY="svn://anonsvn.kde.org/home/kde"
+SCM_SUBPATH="/extragear/graphics/skanlite"
+
+require kde4 scm-svn
+
+SUMMARY="Skanlite is an image scanning application, for KDE 4."
+HOMEPAGE="http://userbase.kde.org/Skanlite"
+
+LICENCES="GPL-2"
+SLOT="0"
+PLATFORMS="~amd64 ~x86"
+MYOPTIONS=""
+
+DEPENDENCIES="
+    build+run:
+        kde/kdelibs
+        media-gfx/sane-backends"
+
+src_prepare() {
+    cd ${WORK}
+    sed -i -e "s/Icon=skanlite/Icon=scanner/" skanlite.desktop
+}
