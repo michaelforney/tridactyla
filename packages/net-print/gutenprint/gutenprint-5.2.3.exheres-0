@@ -1,0 +1,84 @@
+# Copyright 2008 Michael Forney
+# Distributed under the terms of the GNU General Public License v2
+# Based in part upon 'gutenprint-5.2.3.ebuild' from Gentoo, which is:
+#     Copyright 1999-2009 Gentoo Foundation
+
+require multilib
+
+SUMMARY="Ghostscript and cups printer drivers"
+HOMEPAGE="http://gutenprint.sourceforge.net"
+DOWNLOADS="mirror://sourceforge/gimp-print/${PNV}.tar.bz2"
+
+LICENCES="GPL-2"
+SLOT="0"
+PLATFORMS="~amd64 ~x86"
+MYOPTIONS="
+    X
+    cups
+    ppds
+    gtk
+    readline
+    gimp
+
+    ppds [[ requires = cups ]]
+    X ( gtk gimp ) [[ number-selected = at-least-one ]]
+"
+
+DEPENDENCIES="
+    build+run:
+        cups? ( >=net-print/cups-1.1.14 )
+        app-text/ghostscript
+        sys-libs/readline
+        gtk? ( x11-libs/gtk+:2 )
+        gimp? ( media-gfx/gimp x11-libs/gtk+:2 )
+        dev-lang/perl
+    build:
+        gtk? ( dev-util/pkg-config )"
+
+DEFAULT_SRC_CONFIGURE_PARAMS=(
+    --enable-test
+    --enable-epson
+    --with-ghostscript
+    --with-user-guide
+    --with-samples
+    --with-escputil
+    --without-foomatic
+    --disable-translated-cups-ppds
+    --enable-nls
+)
+
+DEFAULT_SRC_CONFIGURE_OPTION_WITHS=(
+    readline
+    cups
+    'gimp gimp2'
+    'gimp gimp2-as-gutenprint'
+)
+
+DEFAULT_SRC_CONFIGURE_OPTION_ENABLES=(
+    'ppds cups-ppds'
+    'ppds cups-level3-ppds'
+    'X libgutenprintui2'
+)
+
+DEFAULT_SRC_INSTALL_EXTRA_DOCS="AUTHORS ChangeLog NEWS README doc/gutenprint-users-manual.{pdf,odt}"
+
+src_install () {
+    default_src_install
+    
+    rm -fR "${IMAGE}"/usr/share/gutenprint/doc
+    if ! option gtk && ! option gimp; then
+        rm -f "${IMAGE}"/usr/$(get_libdir)/pkgconfig/gutenprintui2.pc
+        rm -rf "${IMAGE}"/usr/include/gutenprintui2
+    fi
+    rm -rf ${IMAGE}/usr/$(get_libdir)/gutenprint
+    
+}
+
+pkg_postinst() {
+    if [ "${ROOT}" == "/" ] && [ -x /usr/sbin/cups-genppdupdate ]; then
+        elog "Updating installed printer ppd files"
+        elog $(/usr/sbin/cups-genppdupdate)
+    else
+        elog "You need to update installed ppds manually using cups-genppdupdate"
+    fi
+}

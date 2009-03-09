@@ -16,7 +16,7 @@ DEPENDENCIES="
 
 WORK="${WORK}/linux-core"
 
-KV_FULL=$(uname -r)
+#KV_FULL=$(uname -r)
 
 DEFAULT_SRC_COMPILE_PARAMS=(
     DRM_MODULES="nouveau.o drm.o"
