@@ -1,0 +1,24 @@
+# Copyright 2008 Michael Forney
+# Distributed under the terms of the GNU General Public License v2
+# Based in part upon 'libview-0.6.2' from Gentoo, which is:
+#     Copyright 1999-2009 Gentoo Foundation
+
+require gnome-2
+
+SUMMARY="VMware's Incredibly Exciting Widgets"
+HOMEPAGE="http://view.sourceforge.net"
+DOWNLOADS="mirror://sourceforge/view/${PNV}.tar.bz2"
+
+LICENCES="MIT"
+SLOT="0"
+PLATFORMS="~amd64 ~x86"
+MYOPTIONS=" "
+
+DEPENDENCIES="
+    build+run:
+        >=x11-libs/gtk+-2.4.0
+        >=gnome-bindings/gtkmm-2.4
+    build:
+        dev-util/pkg-config"
+
+DEFAULT_SRC_CONFIGURE_OPTION_PARAMS=("--enable-deprecated")

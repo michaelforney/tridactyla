@@ -1,0 +1,162 @@
+# Copyright 2008 Michael Forney
+# Distributed under the terms of the GNU General Public License v2
+
+require freedesktop-mime gnome-2
+
+MY_PN="VMware-Workstation-6.5.1-126130"
+
+SUMMARY="Emulate a complete PC on your PC without the usual performance overhead of most emulators"
+HOMEPAGE="http://www.vmware.com/products/desktop/ws_features.html"
+DOWNLOADS="
+    mirror://vmware/software/wkst/${MY_PN}.x86_64.bundle
+    http://download.softpedia.ro/linux/${MY_PN}.x86_64.bundle
+    "
+
+LICENCES="vmware"
+SLOT="0"
+PLATFORMS="-* amd64"
+MYOPTIONS=""
+
+RESTRICT="strip fetch binchecks"
+PROPERTIES="interactive"
+
+DEPENDENCIES="
+    build+run:
+        sys-libs/glibc
+        x11-libs/libXrandr
+        x11-libs/libXcursor
+        x11-libs/libXinerama
+        x11-libs/libXi
+        x11-libs/libXft
+        >=x11-libs/libview-0.6.2
+        dev-cpp/libsexymm
+        dev-cpp/cairomm
+        gnome-bindings/gtkmm
+        gnome-bindings/libgnomecanvasmm
+        !app-emulation/vmware-player
+        !app-emulation/vmware-server
+        sys-fs/fuse
+        sys-apps/pciutils
+    build:
+        >=dev-lang/python-2.5
+        dev-python/lxml"
+
+WORK="${WORKBASE}/vmware-distrib"
+VM_INSTALL_DIR="/opt/vmware/workstation"
+
+pkg_setup() {
+    if [[ ${ARCH} = "x86" ]] ; then
+        MY_PNV="${MY_PN}.i386"
+    elif [[ ${ARCH} = "amd64" ]] ; then
+        MY_PNV="${MY_PN}.x86_64"
+    else
+        elog ${ARCH}
+    fi
+    
+    if [ "$(python -c "import curses; curses.setupterm(); print curses.tigetstr('hpa')")" == "None" ]; then
+        die "Please emerge this package using a different terminal (e.g. not within screen)."
+    fi
+}
+
+pkg_nofetch() {
+    elog ${MY_PNV}
+        
+    einfo "Please download the ${MY_PNV}.bundle from ${HOMEPAGE}"
+}
+
+src_unpack() {
+    # Unbundle the bundle
+    cp "${FILES}/helpers/*" "${WORKBASE}"
+    chmod a+x "${WORKBASE}*.sh"
+    "${WORKBASE}/unbundler.sh" "${FETCHEDDIR}/${MY_PNV}.bundle"
+
+    # Patch up the installer
+    epatch "${FILES}/${PNV}-installer.patch"
+
+    mkdir "${WORKBASE}/vmware-confdir"
+}
+        
+src_install() {
+    dodir /etc/init.d
+
+    #Run the installer
+    local INSTALLER="${WORKBASE}/payload/install/vmware-installer"
+    local PYOPTS="-W ignore::DeprecationWarning"
+    export VMWARE_SKIP_NETWORKING="true"
+    python ${PYOPTS} "${INSTALLER}/vmware-installer.py" \
+        --set-setting vmware-installer.libconf "${INSTALLER}/lib/libconf" \
+        --set-setting initdir "${TEMP}" \
+        --set-setting initscriptdir "${IMAGE}/etc/init.d" \
+        --set-setting prefix "${IMAGE}${VM_INSTALL_DIR}" \
+        --set-setting sysconfdir "${IMAGE}/etc" \
+        --install-component "${INSTALLER}" \
+        --install-bundle "${FETCHEDDIR}/${MY_PNV}.bundle" \
+        --console --required
+
+    rm -fr "${IMAGE}${VM_INSTALL_DIR}/lib/vmware/modules/binary"
+
+    if [ ! -e "${WORKBASE}"/vmware-confdir/bootstrap ]; then
+        eerror "VMware installation seems to have rolled back."
+        eerror "Please include the contents of ${WORKBASE}/vmware-installer.log"
+        eerror "in any bug reports you file."
+        die "VMware installation rolled back."
+    fi
+
+    # Redirect all the ${IMAGE} paths to / paths"
+    sed -i -e "s:${IMAGE}::" "${WORKBASE}"/vmware-confdir/bootstrap
+
+    # Fix up icons/mime/desktop handlers
+    dodir /usr/share/
+    mv "${IMAGE}${VM_INSTALL_DIR}"/share/applications "${IMAGE}"/usr/share/
+    rm -f "${IMAGE}${VM_INSTALL_DIR}"/share/icons/hicolor/{icon-theme.cache,index.theme}
+    mv "${IMAGE}${VM_INSTALL_DIR}"/share/icons "${IMAGE}"/usr/share/
+    dodir /usr/share/mime
+    mv "${IMAGE}${VM_INSTALL_DIR}"/share/mime/packages "${IMAGE}"/usr/share/mime
+    sed -i -e "s:${IMAGE}::" "${IMAGE}"/usr/share/applications/*.desktop
+
+    # Copy across the temporary /etc/vmware directory
+    dodir /etc/vmware/init.d
+    cp -r "${WORKBASE}"/vmware-confdir/* "${IMAGE}/etc/vmware"
+    mv "${IMAGE}"/etc/init.d/* "${IMAGE}/etc/vmware/init.d"
+    newinitd "${FILES}/${PN}"-6.5.rc vmware
+    touch "${IMAGE}"/etc/vmware/networking
+
+    # Setup the path environment
+    insinto /etc/env.d
+    doins "${FILES}/90${PN}"
+
+    # Fix some paths to allow included gtk to work
+    for i in    "/etc/pango/pangorc"            \
+        "/etc/pango/pango.modules"      \
+        "/etc/gtk-2.0/gtk.immodules"    \
+        "/etc/gtk-2.0/gdk-pixbuf.loaders" ; do
+        sed -i -e "s:${IMAGE}::" "${IMAGE}${VM_INSTALL_DIR}"/lib/vmware/libconf${i} ;
+    sed -i -e "s:${IMAGE}::" "${IMAGE}${VM_INSTALL_DIR}"/lib/vmware/installer/lib/libconf${i} ;
+    done
+
+    # No idea why this happens, but it seems to happen all the time
+    ewarn "The following installation segment takes a *very* long time."
+    ewarn "Please be patient."
+}
+                
+pkg_config() {
+    ${VM_INSTALL_DIR}/bin/vmware-networks --postinstall ${PN},old,new
+}
+                    
+pkg_preinst() {
+    gnome_exlib_save_icon_index_dirs
+}
+                    
+pkg_postinst() {
+    freedesktop-mime_update_desktop_database
+    gnome_exlib_update_icon_cache
+                        
+    ewarn "Before you can use vmware-player, you must configure a default network setup."
+    ewarn "You can do this by running 'emerge --config ${PN}'."
+}
+                    
+pkg_postrm() {
+    freedesktop-mime_update_desktop_database
+    gnome_exlib_update_icon_cache
+}
+                    

@@ -1,0 +1,41 @@
+# Copyright 2008 Michael Forney
+# Distributed under the terms of the GNU General Public License v2
+
+require gnome-2
+
+SUMMARY="C++ bindings for libgnomecanvas"
+HOMEPAGE="http://www.gtkmm.org"
+DOWNLOADS="mirror://gentoo/${PNV}.tar.bz2"
+
+LICENCES="LGPL-2.1"
+SLOT="2.6"
+PLATFORMS="~amd64 ~x86"
+MYOPTIONS="doc examples"
+
+DEPENDENCIES="
+    build+run:
+        >=gnome-platform/libgnomecanvas-2.6
+        >=gnome-bindings/gtkmm-2.4
+    build:
+        dev-util/pkg-config"
+
+DEFAULT_SRC_INSTALL_EXTRA_DOCS="AUTHORS ChangeLog NEWS README TODO INSTALL"
+
+src_unpack() {
+    default_src_unpack
+    cd ${WORK}
+    if ! option examples; then
+        # don't waste time building the examples
+        sed -i 's/^\(SUBDIRS =.*\)examples\(.*\)$/\1\2/' Makefile.in || \
+        die "sed Makefile.in failed"
+    fi
+}
+
+src_install() {
+    default_src_install
+        
+    if option examples; then
+        cp -R examples "${IMAGE}/usr/share/doc/${PNVR}"
+    fi
+}
+            
