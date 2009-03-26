@@ -1,0 +1,17 @@
+# Copyright 2008 Michael Forney
+# Distributed under the terms of the GNU General Public License v2
+
+require cmake
+
+SUMMARY="A unionfs filesystem implementation which is way more flexible than the current in-kernel unionfs solution"
+HOMEPAGE="http://podgorny.cz/moin/UnionFsFuse"
+DOWNLOADS="http://podgorny.cz/unionfs-fuse/releases/${PNV}.tar.bz2"
+
+LICENCES="BSD"
+SLOT="0"
+PLATFORMS="~amd64 ~x86"
+MYOPTIONS=""
+
+DEPENDENCIES="
+    build+run:
+        sys-fs/fuse"
