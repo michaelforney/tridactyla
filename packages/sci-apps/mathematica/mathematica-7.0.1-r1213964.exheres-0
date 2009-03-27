@@ -77,17 +77,18 @@ src_install() {
         keepdir "/usr/${PNV}/`echo ${directory} | sed "s:^${WORK}::"`"
     done
 
-    dodir "/usr/share/applications"
+dodir "/usr/share/applications"
+    insinto "/usr/share/applications"
     for desktop in ${WORK}/SystemFiles/Installation/*.desktop
     do
-        elog `basename ${desktop}`
-        dosym "../../${PNV}/SystemFiles/Installation/`basename ${desktop}`" "/usr/share/applications/`basename ${desktop}`"
+        doins ${desktop}
     done
 
     dodir "/usr/share/mime/packages"
+    insinto "/usr/share/mime/packages"
     for mime in ${WORK}/SystemFiles/Installation/*.xml
     do
-        dosym "../../../${PNV}/SystemFiles/Installation/`basename ${mime}`" "/usr/share/mime/packages/`basename ${mime}`"
+        doins ${mime}
     done
 
     appStrings="Mathematica MathematicaPlayer MathematicaPlayerPro"
