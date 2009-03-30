@@ -102,10 +102,10 @@ dodir "/usr/share/applications"
     for j in ${bitSize}; do
         dodir "/usr/share/icons/hicolor/${j}x${j}/apps"
         for d in ${appStrings}; do
-            dosym "../../../${PNV}/SystemFiles/FrontEnd/SystemResources/X/${d}-${j}.png" "/usr/share/icons/hicolor/${j}x${j}/apps/wolfram-`echo ${d} | tr '[:upper:]' '[:lower:]'`.png"
+            dosym "../../../../../${PNV}/SystemFiles/FrontEnd/SystemResources/X/${d}-${j}.png" "/usr/share/icons/hicolor/${j}x${j}/apps/wolfram-`echo ${d} | tr '[:upper:]' '[:lower:]'`.png"
         done
         for d in ${docStrings}; do
-            dosym "../../../${PNV}/SystemFiles/FrontEnd/SystemResources/X/${d}Doc-${j}.png" "/usr/share/icons/hicolor/${j}x${j}/apps/application-`echo ${d} | tr '[:upper:]' '[:lower:]'`.png"
+            dosym "../../../../../${PNV}/SystemFiles/FrontEnd/SystemResources/X/${d}Doc-${j}.png" "/usr/share/icons/hicolor/${j}x${j}/apps/application-`echo ${d} | tr '[:upper:]' '[:lower:]'`.png"
         done
     done
 }
