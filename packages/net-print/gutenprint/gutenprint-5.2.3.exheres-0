@@ -26,7 +26,7 @@ MYOPTIONS="
 
 DEPENDENCIES="
     build+run:
-        cups? ( >=net-print/cups-1.1.14 )
+        cups? ( net-print/cups[>=1.1.14] )
         app-text/ghostscript
         sys-libs/readline
         gtk? ( x11-libs/gtk+:2 )

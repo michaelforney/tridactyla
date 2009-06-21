@@ -11,7 +11,7 @@ PLATFORMS="~amd64 ~x86"
 
 DEPENDENCIES="
     run:
-    	>=dev-lang/perl-5"
+    	dev-lang/perl[>=5]"
 
 src_unpack() {
     unpack ${ARCHIVES}

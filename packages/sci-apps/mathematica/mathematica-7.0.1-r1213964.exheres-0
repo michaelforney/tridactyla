@@ -77,7 +77,7 @@ src_install() {
         keepdir "/usr/${PNV}/`echo ${directory} | sed "s:^${WORK}::"`"
     done
 
-dodir "/usr/share/applications"
+    dodir "/usr/share/applications"
     insinto "/usr/share/applications"
     for desktop in ${WORK}/SystemFiles/Installation/*.desktop
     do

@@ -14,8 +14,8 @@ MYOPTIONS="doc examples"
 
 DEPENDENCIES="
     build+run:
-        >=gnome-platform/libgnomecanvas-2.6
-        >=gnome-bindings/gtkmm-2.4
+        gnome-platform/libgnomecanvas[>=2.6]
+        gnome-bindings/gtkmm[>=2.4]
     build:
         dev-util/pkg-config"
 

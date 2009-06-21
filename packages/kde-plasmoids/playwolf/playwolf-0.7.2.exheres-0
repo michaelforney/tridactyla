@@ -5,7 +5,7 @@ require kde4
 
 SUMMARY="A Plasma applet that can control and show information about songs in Amarok 2.0"
 HOMEPAGE="http://playwolf.googlecode.com"
-DOWNLOADS="http://playwolf.googlecode.com/files/playwolf-0.7.1.tar.bz2"
+DOWNLOADS="http://playwolf.googlecode.com/files/${PNV}.tar.bz2"
 
 LICENCES="GPL-2"
 SLOT="0"
@@ -17,3 +17,5 @@ DEPENDENCIES="
         kde/kdelibs"
 
 WORK=${WORKBASE}/${PN}
+
+DEFAULT_SRC_PREPARE_PATCHES=("${FILES}/${PNV}-displayfix.patch")
