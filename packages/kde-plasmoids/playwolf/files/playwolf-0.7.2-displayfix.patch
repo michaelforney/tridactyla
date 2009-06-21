@@ -1,0 +1,12 @@
+diff -Naur playwolf/wolflabel.cpp playwolf-new/wolflabel.cpp
+--- playwolf/wolflabel.cpp	2009-04-11 14:21:52.000000000 -0700
++++ playwolf-new/wolflabel.cpp	2009-06-10 14:49:23.000000000 -0700
+@@ -41,7 +41,7 @@
+ WolfLabel::WolfLabel(QGraphicsWidget *parent)
+     : QGraphicsWidget(parent)
+ {
+-    setFlag(QGraphicsItem::ItemClipsChildrenToShape, true);
++    //setFlag(QGraphicsItem::ItemClipsChildrenToShape, true);
+ 
+     label = new Plasma::Label(this);
+     label->nativeWidget()->setAlignment(Qt::AlignCenter);
