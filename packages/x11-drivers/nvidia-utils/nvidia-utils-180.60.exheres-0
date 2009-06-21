@@ -1,0 +1,91 @@
+# Copyright 2008 Michael Forney
+# Distributed under the terms of the GNU General Public License v2
+
+require alternatives multilib
+
+SUMMARY="NVIDIA drivers, utilities, and libraries"
+HOMEPAGE="http://nvidia.com"
+
+LICENCES="NVIDIA"
+SLOT="0"
+PLATFORMS="-* ~amd64"
+MYOPTIONS="
+    gtk
+    platform:
+        amd64
+        x86"
+
+DOWNLOADS="
+    platform:amd64? ( http://download.nvidia.com/XFree86/Linux-x86_64/${PV}/NVIDIA-Linux-x86_64-${PV}-pkg0.run )
+    platform:x86? ( http://download.nvidia.com/XFree86/Linux-x86/${PV}/NVIDIA-Linux-x86-${PV}-pkg0.run )"
+
+DEPENDENCIES="
+    build+run:
+        gtk? ( x11-libs/gtk+:2 )
+        x11-dri/eclectic-opengl
+        x11-dri/mesa"
+
+WORK=${WORKBASE}/"NVIDIA-Linux-x86_64-${PV}-pkg0"
+
+src_unpack()
+{
+    sh ${FETCHEDDIR}/${ARCHIVES} --extract-only
+}
+
+src_install()
+{
+    cd ${WORK}/usr
+    dodir /usr/$(get_libdir)/opengl/nvidia
+    dodir /usr/{bin,share/man/man1}
+    dodir /usr/include/{cuda,vdpau}
+    dodir /usr/$(get_libdir)/xorg/modules/{extensions,drivers}
+    #dodir /usr/share/licenses/nvidia
+
+    insinto /usr/$(get_libdir)/opengl/nvidia
+    doins lib/libGL.so.${PV}
+
+    #insinto /usr/$(get_libdir)
+    dolib lib/{libGLcore,libnvidia-cfg,libcuda,libvdpau_trace,libvdpau_nvidia,libvdpau,tls/libnvidia-tls}.so.${PV}
+
+    insinto /usr/include/cuda
+    doins include/cuda/cuda*.h
+
+    insinto /usr/include/vdpau
+    doins include/vdpau/vdpau*.h
+
+    rm share/man/man1/nvidia-installer.1.gz
+    doman share/man/man1/*
+
+    if optionq gtk; then
+        dodir /usr/share/{applications,pixmaps}
+        
+        sed -e 's:__UTILS_PATH__:/usr/bin:' -e 's:__PIXMAP_PATH__:/usr/share/pixmaps:' -i share/applications/nvidia-settings.desktop
+        insinto /usr/share/applications
+        doins share/applications/nvidia-settings.desktop
+        
+        insinto /usr/share/pixmaps
+        doins share/pixmaps/nvidia-settings.png
+
+        dobin bin/nvidia-settings
+    fi
+
+    insinto /usr/$(get_libdir)/xorg/modules/drivers
+    doins X11R6/lib/modules/drivers/nvidia_drv.so
+
+    insinto /usr/$(get_libdir)/xorg/modules/extensions
+    doins X11R6/lib/modules/extensions/libglx.so.${PV}
+
+    dobin bin/nvidia-{xconfig,bug-report.sh}
+
+    dosym /usr/$(get_libdir)/xorg/modules/extensions/libglx.so.${PV} /usr/$(get_libdir)/xorg/modules/extensions/libglx.so
+    dosym /usr/$(get_libdir)/libGLcore.so.${PV} /usr/$(get_libdir)/libGLcore.so.1
+    dosym /usr/$(get_libdir)/libnvidia-cfg.so.${PV} /usr/$(get_libdir)/libnvidia-cfg.so.1
+    dosym /usr/$(get_libdir)/libnvidia-tls.so.${PV} /usr/$(get_libdir)/libnvidia-cfg.so.1
+    dosym /usr/$(get_libdir)/libcuda.so.${PV} /usr/$(get_libdir)/libcuda.so.1
+    dosym /usr/$(get_libdir)/libcuda.so.${PV} /usr/$(get_libdir)/libcuda.so
+    dosym /usr/$(get_libdir)/libvdpau.so.${PV} /usr/$(get_libdir)/libvdpau.so.1
+    dosym /usr/$(get_libdir)/libvdpau.so.${PV} /usr/$(get_libdir)/libvdpau.so
+    
+
+    alternatives_for opengl nvidia 0 /usr/$(get_libdir)/libGL.so opengl/nvidia/libGL.so.${PV}
+}

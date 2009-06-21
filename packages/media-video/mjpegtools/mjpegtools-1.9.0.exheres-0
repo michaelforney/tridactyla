@@ -16,9 +16,9 @@ DEPENDENCIES="
     build+run:
         media-libs/jpeg
         gtk? ( x11-libs/gtk+:2 )
-        dv? ( >=media-libs/libdv-0.99 )
+        dv? ( media-libs/libdv[>=0.99] )
         png? ( media-libs/libpng )
-        sdl? ( >=media-libs/libsdl-1.2.7-r3 )
+        sdl? ( media-libs/libsdl[>=1.2.7-r3] )
         X? (
             x11-libs/libX11
             x11-libs/libXt 

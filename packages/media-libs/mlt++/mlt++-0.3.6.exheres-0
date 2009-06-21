@@ -14,6 +14,6 @@ MYOPTIONS=""
 
 DEPENDENCIES="
     build+run:
-        >=media-libs/mlt-0.3.6"
+        media-libs/mlt[=${PV}]"
 
 DEFAULT_SRC_INSTALL_EXTRA_DOCS="README CUSTOMISING HOWTO"

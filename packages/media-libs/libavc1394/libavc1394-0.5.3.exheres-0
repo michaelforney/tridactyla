@@ -1,0 +1,19 @@
+# Copyright 2008 Michael Forney
+# Distributed under the terms of the GNU General Public License v2
+
+SUMMARY="library for the 1394 Trade Association AV/C (Audio/Video Control) Digital Interface Command Set"
+HOMEPAGE="http://www.linux1394.org/ http://sourceforge.net/projects/libavc1394/"
+DOWNLOADS="mirror://sourceforge/libavc1394/${PNV}.tar.gz"
+
+LICENCES="LGPL-2.1"
+SLOT="0"
+PLATFORMS="~amd64 ~x86"
+MYOPTIONS=""
+
+DEPENDENCIES="
+    build+run:
+        media-libs/libraw1394[>=0.8]
+    build:
+        dev-util/pkg-config"
+
+DEFAULT_SRC_INSTALL_EXTRA_DOCS=("AUTHORS ChangeLog NEWS README TODO")

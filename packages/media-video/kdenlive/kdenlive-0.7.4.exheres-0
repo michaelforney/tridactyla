@@ -1,0 +1,7 @@
+# Copyright 2008 Michael Forney
+# Distributed under the terms of the GNU General Public License v2
+
+require kdenlive
+
+DOWNLOADS="mirror://sourceforge/${PN}/${PNV}.tar.gz"
+PLATFORMS="~amd64 ~x86"

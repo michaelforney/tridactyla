@@ -13,9 +13,9 @@ MYOPTIONS="debug sdl xv gtk"
 DEPENDENCIES="
     build+run:
         dev-libs/popt
-        sdl? ( >=media-libs/libsdl-1.2.5 )
+        sdl? ( media-libs/libsdl[>=1.2.5] )
         xv? ( x11-libs/libXv )
-        gtk? ( x11-libs/gtk+ )
+        gtk? ( x11-libs/gtk+:2 )
     build:
 	dev-util/pkg-config"
 

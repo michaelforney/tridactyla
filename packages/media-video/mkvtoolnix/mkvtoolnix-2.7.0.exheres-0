@@ -1,0 +1,28 @@
+# Copyright 2008 Michael Forney
+# Distributed under the terms of the GNU General Public License v2
+
+SUMMARY="Tools to create, alter, and inspect Matroska files"
+HOMEPAGE="http://www.bunkus.org/videotools/mkvtoolnix"
+DOWNLOADS="http://www.bunkus.org/videotools/mkvtoolnix/sources/${PNV}.tar.bz2"
+
+LICENCES="GPL-2"
+SLOT="0"
+PLATFORMS="~amd64"
+MYOPTIONS="flac bzip2 lzo qt4"
+
+DEPENDENCIES="
+    build+run:
+        media-libs/libebml[>=0.7.7]
+        media-libs/libmatroska[>=0.8.1]
+        media-libs/libogg
+        media-libs/libvorbis
+        dev-libs/expat
+        sys-libs/zlib
+        dev-libs/boost
+        flac? ( media-libs/flac )
+        bzip2? ( app-arch/bzip2 )
+        lzo? ( app-arch/lzo )
+        qt4? ( x11-libs/qt:4 )"
+
+DEFAULT_SRC_CONFIGURE_OPTION_ENABLES=('lzo' 'bzip2 bz2' 'flac' 'qt4 qt')
+DEFAULT_SRC_INSTALL_DOC_EXTRAS="AUTHORS ChangeLog README TODO"

@@ -1,0 +1,27 @@
+# Copyright 2008 Michael Forney
+# Distributed under the terms of the GNU General Public License v2
+
+SUMMARY="Digital Video (DV) grabber for GNU/Linux"
+HOMEPAGE="http://www.kinodv.org/"
+DOWNLOADS="mirror://sourceforge/kino/${PNV}.tar.gz"
+
+LICENCES="GPL-2"
+SLOT="0"
+PLATFORMS="~amd64 ~x86"
+MYOPTIONS="jpeg quicktime"
+
+DEPENDENCIES="
+    build+run:
+        media-libs/libdv[>=0.103]
+        media-libs/libiec61883[>=1]
+        media-libs/libavc1394
+        jpeg? ( media-libs/jpeg )
+        quicktime? ( media-libs/libquicktime )
+    build:
+        dev-util/pkg-config"
+
+DEFAULT_SRC_CONFIGURE_OPTION_WITHS=('jpeg libjpeg')
+
+DEFAULT_SRC_INSTALL_EXTRA_DOCS=("AUTHORS ChangeLog NEWS README TODO")
+
+DEFAULT_SRC_PREPARE_PATCHES=("${FILES}/${PNV}-gcc44.patch")

@@ -1,0 +1,19 @@
+# Copyright 2008 Michael Forney
+# Distributed under the terms of the GNU General Public License v2
+
+SUMMARY="library for capturing video (dv or mpeg2) over the IEEE 1394 bus"
+HOMEPAGE="http://www.linux1394.org"
+DOWNLOADS="http://www.linux1394.org/dl/${PNV}.tar.gz"
+
+LICENCES="LGPL-2.1 GPL-2"
+SLOT="0"
+PLATFORMS="~amd64 ~x86"
+MYOPTIONS=""
+
+DEPENDENCIES="
+    build+run:
+        media-libs/libavc1394
+    build:
+        dev-util/pkg-config"
+
+DEFAULT_SRC_INSTALL_EXTRA_DOCS=("AUTHORS ChangeLog NEWS README")

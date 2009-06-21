@@ -14,7 +14,7 @@ DEPENDENCIES="
     	dev-lang/perl[>=5]"
 
 src_unpack() {
-    unpack ${ARCHIVES}
+    unpack "${ARCHIVES}"
     cd "${WORK}"
     sed     -i \
         -e '1 c\#!/usr/bin/perl'\
@@ -35,5 +35,5 @@ src_install() {
     dosym cowsay.1 /usr/share/man/man1/cowthink.1
     dodir /usr/share/${PNV}/cows
     cp -r cows "${IMAGE}"/usr/share/${PNV}/ || die "cp failed"
-    #dobashcompletion "${FILES}"/${PN}.bashcomp
+    dobashcompletion "${FILES}"/${PN}.bashcomp
 }
