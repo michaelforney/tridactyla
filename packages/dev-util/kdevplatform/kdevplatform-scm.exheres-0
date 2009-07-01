@@ -1,0 +1,15 @@
+# Copyright 2008 Michael Forney
+# Distributed under the terms of the GNU General Public License v2
+
+SCM_REPOSITORY="svn://anonsvn.kde.org/home/kde"
+SCM_SUBPATH="KDE/${PN}"
+
+SCM_expandingtree_REPOSITORY="${SCM_REPOSITORY}"
+SCM_expandingtree_SUBPATH="KDE/kdelibs/kate/completion/expandingtree"
+
+SCM_SECONDARY_REPOSITORIES="expandingtree"
+SCM_SVN_EXTERNALS="plugins/quickopen/expandingtree:expandingtree"
+
+require kdevplatform scm-svn
+
+PLATFORMS="~amd64"

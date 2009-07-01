@@ -1,0 +1,28 @@
+# Copyright 2008 Michael Forney
+# Distributed under the terms of the GNU General Public License v2
+# Based in part upon 'picard-0.11.ebuild' from Gentoo, which is:
+#     Copyright 1999-2009 Gentoo Foundation
+
+require distutils [ has_bin=yes ]
+
+SUMMARY="Picard is the next generation MusicBrainz tagging application"
+HOMEPAGE="http://musicbrainz.org/doc/Picard_Tagger"
+DOWNLOADS="http://ftp.musicbrainz.org/pub/musicbrainz/${PN}/${PNV}.tar.gz"
+
+LICENCES="GPL-2"
+SLOT="0"
+PLATFORMS="~amd64"
+MYOPTIONS="cdaudio ffmpeg"
+
+DEPENDENCIES="
+    build+run:
+        x11-libs/qt:4[>=4.2]
+        dev-python/PyQt4[>=4.1]
+        dev-python/mutagen[>=1.9]
+        cdaudio? ( media-libs/libdiscid[>=0.1.1] )
+        ffmpeg? (
+            media/ffmpeg
+            media-libs/libofa[>=0.9.2]
+        )"
+
+DEFAULT_SRC_INSTALL_EXTRA_DOCS="AUTHORS.txt INSTALL.txt NEWS.txt"

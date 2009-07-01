@@ -1,0 +1,8 @@
+# Copyright 2008 Michael Forney
+# Distributed under the terms of the GNU General Public License v2
+
+require kdevplatform
+
+DOWNLOADS="mirror://kde/unstable/kdevelop/3.9.94/${PNV}.tar.bz2"
+
+PLATFORMS="~amd64"

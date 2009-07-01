@@ -84,4 +84,3 @@ src_install() {
     doins -r wop || die "doins failed"
     #dohtml -r readme readme.html
 }
-            

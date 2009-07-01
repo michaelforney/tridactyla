@@ -16,16 +16,15 @@ MYOPTIONS="
         x86"
 
 DOWNLOADS="
-    platform:amd64? ( http://download.nvidia.com/XFree86/Linux-x86_64/${PV}/NVIDIA-Linux-x86_64-${PV}-pkg0.run )
+    platform:amd64? ( http://download.nvidia.com/XFree86/Linux-x86_64/${PV}/NVIDIA-Linux-x86_64-${PV}-pkg2.run )
     platform:x86? ( http://download.nvidia.com/XFree86/Linux-x86/${PV}/NVIDIA-Linux-x86-${PV}-pkg0.run )"
 
 DEPENDENCIES="
     build+run:
         gtk? ( x11-libs/gtk+:2 )
-        x11-dri/eclectic-opengl
         x11-dri/mesa"
 
-WORK=${WORKBASE}/"NVIDIA-Linux-x86_64-${PV}-pkg0"
+WORK=${WORKBASE}/"NVIDIA-Linux-x86_64-${PV}-pkg2"
 
 src_unpack()
 {

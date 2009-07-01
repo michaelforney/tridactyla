@@ -6,7 +6,7 @@ SCM_REPOSITORY="git://github.com/michaelforney/trickle.git"
 require kde4 scm-git
 
 SUMMARY="Trickle is an extensible frontend to various BitTorrent clients"
-HOMEPAGE="http://trickle.sf.net"
+HOMEPAGE="http://trickleproject.org"
 
 LICENCES="GPL-2"
 SLOT="0"

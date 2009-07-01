@@ -1,0 +1,22 @@
+# Copyright 2008 Michael Forney
+# Distributed under the terms of the GNU General Public License v2
+
+SCM_REPOSITORY="svn://anonsvn.kde.org/home/kde"
+SCM_SUBPATH="KDE/${PN}"
+
+require kde4 scm-svn
+
+SUMMARY="Integrated Development Environment for Unix, supporting KDE/Qt, C/C++ and many other languages."
+HOMEPAGE="http://kdevelop.org"
+
+LICENCES="GPL-2"
+SLOT="0"
+PLATFORMS="~amd64"
+MYOPTIONS=""
+
+DEPENDENCIES="
+    build+run:
+        dev-util/kdevplatform[=scm]
+        kde/kdebase-workspace
+        kde/kdesdk[kde_parts:kapptemplate]
+        x11-libs/qt:4"
