@@ -1,9 +1,0 @@
-# Copyright 2008 Michael Forney
-# Distributed under the terms of the GNU General Public License v2
-
-SCM_REPOSITORY="http://kdenlive.svn.sourceforge.net/svnroot/kdenlive"
-SCM_BRANCH="KDE4"
-
-require scm-svn kdenlive
-
-PLATFORMS="~amd64 ~x86"
