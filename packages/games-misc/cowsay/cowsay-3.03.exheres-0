@@ -1,6 +1,8 @@
 # Copyright 2009 Michael Forney
 # Distributed under the terms of the GNU General Public License v2
 
+require bash-completion
+
 SUMMARY="configurable talking ASCII cow (and other characters)"
 HOMEPAGE="http://www.nog.net/~tony/warez/cowsay.shtml"
 DOWNLOADS="http://www.nog.net/~tony/warez/${PNV}.tar.gz"
@@ -8,15 +10,17 @@ DOWNLOADS="http://www.nog.net/~tony/warez/${PNV}.tar.gz"
 LICENCES="GPL-2"
 SLOT="0"
 PLATFORMS="~amd64 ~x86"
+MYOPTIONS=""
 
 DEPENDENCIES="
     run:
     	dev-lang/perl[>=5]"
 
+BASH_COMPLETIONS=( "${FILES}"/${PN}.bashcomp )
+
 src_unpack() {
-    unpack "${ARCHIVES}"
-    cd "${WORK}"
-    sed     -i \
+    default
+    sed -i \
         -e '1 c\#!/usr/bin/perl'\
         -e 's/\$version/\$VERSION/g'\
         -e "s:%PREFIX%/share/cows:/usr/share/${PNV}/cows:" \
@@ -25,7 +29,6 @@ src_unpack() {
     sed -i \
         -e "s|%PREFIX%/share/cows|/usr/share/${PNV}/cows|" cowsay.1 \
         || die "sed cowsay.1 failed"
-    #epatch "${FILESDIR}/${PNV}"-tongue.patch
 }
 
 src_install() {
@@ -35,5 +38,4 @@ src_install() {
     dosym cowsay.1 /usr/share/man/man1/cowthink.1
     dodir /usr/share/${PNV}/cows
     cp -r cows "${IMAGE}"/usr/share/${PNV}/ || die "cp failed"
-    dobashcompletion "${FILES}"/${PN}.bashcomp
 }
