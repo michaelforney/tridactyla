@@ -6,12 +6,10 @@ SCM_SUBPATH="/playground/base/plasma/applets/panelspacer"
 
 require kde4 scm-svn
 
-SUMMARY="A panel spacer applet"
+SUMMARY="A panel spacer plasma applet"
 HOMEPAGE="http://www.kde-look.org/content/show.php/Panel+Spacer?content=89304"
 
 LICENCES="GPL-2"
 SLOT="0"
 PLATFORMS="~amd64"
-MYOPTIONS=""
 
-DEPENDENCIES=""
