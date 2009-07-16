@@ -7,13 +7,14 @@ DOWNLOADS="http://www.linux1394.org/dl/${PNV}.tar.gz"
 
 LICENCES="LGPL-2.1 GPL-2"
 SLOT="0"
-PLATFORMS="~amd64 ~x86"
-MYOPTIONS=""
+PLATFORMS="~amd64"
 
 DEPENDENCIES="
     build+run:
         media-libs/libavc1394
     build:
-        dev-util/pkg-config"
+        dev-util/pkg-config
+"
 
-DEFAULT_SRC_INSTALL_EXTRA_DOCS=("AUTHORS ChangeLog NEWS README")
+DEFAULT_SRC_INSTALL_EXTRA_DOCS=( AUTHORS ChangeLog NEWS README )
+
