@@ -1,14 +1,16 @@
-# Copyright 2008 Michael Forney
+# Copyright 2008-2009 Michael Forney
 # Distributed under the terms of the GNU General Public License v2
 
-SUMMARY="Tools to create, alter, and inspect Matroska files"
+SUMMARY="MKVToolnix is a set of tools to create, alter and inspect Matroska files under Linux"
 HOMEPAGE="http://www.bunkus.org/videotools/mkvtoolnix"
-DOWNLOADS="http://www.bunkus.org/videotools/mkvtoolnix/sources/${PNV}.tar.bz2"
+DOWNLOADS="http://www.bunkus.org/videotools/${PN}/sources/${PNV}.tar.bz2"
+
+REMOTE_IDS="freshmeat:${PN}"
 
 LICENCES="GPL-2"
 SLOT="0"
 PLATFORMS="~amd64"
-MYOPTIONS="flac bzip2 lzo qt4"
+MYOPTIONS="flac bzip2 lzo qt4 wxwidgets"
 
 DEPENDENCIES="
     build+run:
@@ -22,7 +24,9 @@ DEPENDENCIES="
         flac? ( media-libs/flac )
         bzip2? ( app-arch/bzip2 )
         lzo? ( app-arch/lzo )
-        qt4? ( x11-libs/qt:4 )"
+        qt4? ( x11-libs/qt:4 )
+        wxwidgets? ( x11-libs/wxGTK )
+"
 
-DEFAULT_SRC_CONFIGURE_OPTION_ENABLES=('lzo' 'bzip2 bz2' 'flac' 'qt4 qt')
-DEFAULT_SRC_INSTALL_DOC_EXTRAS="AUTHORS ChangeLog README TODO"
+DEFAULT_SRC_CONFIGURE_OPTION_ENABLES=( lzo 'bzip2 bz2' flac 'qt4 qt' wxwidgets )
+DEFAULT_SRC_INSTALL_DOC_EXTRAS=( AUTHORS ChangeLog README TODO )
