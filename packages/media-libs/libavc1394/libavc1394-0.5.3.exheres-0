@@ -11,7 +11,7 @@ PLATFORMS="~amd64"
 
 DEPENDENCIES="
     build+run:
-        media-libs/libraw1394[>=0.8]
+        media-libs/libraw1394[>=1.0.0]
     build:
         dev-util/pkg-config
 "
