@@ -1,0 +1,47 @@
+# Copyright 2009 Michael Forney
+# Distributed under the terms of the GNU General Public License v2
+
+require multilib toolchain-funcs
+
+SUMMARY="A general purpose messaging and notification program"
+HOMEPAGE="http://gotmor.googlepages.com/dzen"
+DOWNLOADS="http://gotmor.googlepages.com/${PNV}.tar.gz"
+
+LICENCES="MIT"
+SLOT="0"
+PLATFORMS="~amd64"
+MYOPTIONS="xinerama xpm"
+
+DEPENDENCIES="
+    build:
+    build+run:
+        x11-libs/libX11
+        xinerama? ( x11-libs/libXinerama )
+        xpm? ( x11-libs/libXpm )
+"
+
+BUGS_TO="Michael Forney <michael@obberon.com>"
+
+option_define() {
+    if optionq ${1} ; then
+        echo -DDZEN_${1} | tr [:lower:] [:upper:]
+    fi
+}
+
+src_prepare() {
+    local libs=(
+        x11
+        $(optionq xinerama && echo xinerama)
+        $(optionq xpm && echo xpm)
+    )
+    local flags=(
+        $(option_define xinerama)
+        $(option_define xpm)
+    )
+    sed -e "s:^\(PREFIX =\).*$:\1 /usr:" \
+        -e "s:^\(CC =\).*$:\1 $(tc-getCC):" \
+        -e "s:^\(CFLAGS =\).*$:\1 -DVERSION=\\\\\"${PV}\\\\\" ${flags[@]} $(pkg-config --cflags ${libs[@]}) ${CFLAGS}:" \
+        -e "s:^\(LDFLAGS =\).*$:\1 $(pkg-config --libs ${libs[@]}) ${LDFLAGS}:" \
+        -i "${WORK}"/config.mk
+}
+
