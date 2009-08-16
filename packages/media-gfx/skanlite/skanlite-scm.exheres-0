@@ -6,7 +6,7 @@ SCM_SUBPATH="/extragear/graphics/skanlite"
 
 require kde4 scm-svn
 
-SUMMARY="Skanlite is an image scanning application, for KDE 4."
+SUMMARY="Skanlite is an image scanning application for KDE 4"
 HOMEPAGE="http://userbase.kde.org/Skanlite"
 
 LICENCES="GPL-2"
@@ -19,7 +19,6 @@ DEPENDENCIES="
 "
 
 src_prepare() {
-    cd ${WORK}
     sed -i -e "s/Icon=skanlite/Icon=scanner/" skanlite.desktop # Fix the icon
 }
 
