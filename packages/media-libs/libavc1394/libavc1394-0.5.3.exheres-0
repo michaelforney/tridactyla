@@ -16,5 +16,3 @@ DEPENDENCIES="
         dev-util/pkg-config
 "
 
-DEFAULT_SRC_INSTALL_EXTRA_DOCS=( AUTHORS ChangeLog NEWS README TODO )
-
