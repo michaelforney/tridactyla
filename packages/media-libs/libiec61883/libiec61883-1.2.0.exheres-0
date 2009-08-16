@@ -5,7 +5,7 @@ SUMMARY="library for capturing video (dv or mpeg2) over the IEEE 1394 bus"
 HOMEPAGE="http://www.linux1394.org"
 DOWNLOADS="http://www.linux1394.org/dl/${PNV}.tar.gz"
 
-LICENCES="LGPL-2.1 GPL-2"
+LICENCES="LGPL-2.1"
 SLOT="0"
 PLATFORMS="~amd64"
 
@@ -15,6 +15,4 @@ DEPENDENCIES="
     build:
         dev-util/pkg-config
 "
-
-DEFAULT_SRC_INSTALL_EXTRA_DOCS=( AUTHORS ChangeLog NEWS README )
 
