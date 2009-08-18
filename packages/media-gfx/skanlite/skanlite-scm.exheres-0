@@ -14,11 +14,11 @@ SLOT="0"
 PLATFORMS="~amd64"
 
 DEPENDENCIES="
-    run,suggested:
+    post,suggested:
         media-gfx/sane-backends
 "
 
 src_prepare() {
-    sed -i -e "s/Icon=skanlite/Icon=scanner/" skanlite.desktop # Fix the icon
+    sed -e "s/Icon=skanlite/Icon=scanner/" -i skanlite.desktop # Fix the icon
 }
 
