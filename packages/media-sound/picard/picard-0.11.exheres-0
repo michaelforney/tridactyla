@@ -12,19 +12,26 @@ DOWNLOADS="http://ftp.musicbrainz.org/pub/musicbrainz/${PN}/${PNV}.tar.gz"
 LICENCES="GPL-2"
 SLOT="0"
 PLATFORMS="~amd64"
-MYOPTIONS="cdaudio ffmpeg"
+MYOPTIONS="
+    fingerprint [[ description = [ Support for finding fingerprints of audio files with ffmpeg and libofa ] ]]
+"
 
 DEPENDENCIES="
     build+run:
-        x11-libs/qt:4[>=4.2]
         dev-python/PyQt4[>=4.1]
         dev-python/mutagen[>=1.9]
-        cdaudio? ( media-libs/libdiscid[>=0.1.1] )
-        ffmpeg? (
+        x11-libs/qt:4[>=4.2]
+        media-libs/libdiscid
+        fingerprint? (
             media/ffmpeg
-            media-libs/libofa[>=0.9.2]
+            media-libs/libofa
         )
 "
 
-DEFAULT_SRC_INSTALL_EXTRA_DOCS=( AUTHORS.txt INSTALL.txt NEWS.txt )
+src_configure() {
+    ${python} "${WORK}"/setup.py config || die "python setup.py config failed"
+    sed -e "s:\(with-avcodec =\).*:\1 $(optionq fingerprint && echo True || echo False):" \
+        -e "s:\(with-libofa =\).*:\1 $(optionq fingerprint && echo True || echo False):" \
+        -i "${WORK}"/build.cfg || die "sed build.cfg failed"
+}
 
