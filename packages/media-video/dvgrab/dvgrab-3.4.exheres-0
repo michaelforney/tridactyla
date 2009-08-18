@@ -26,5 +26,3 @@ DEFAULT_SRC_PREPARE_PATCHES=( "${FILES}"/${PNV}-gcc44.patch )
 
 DEFAULT_SRC_CONFIGURE_OPTION_WITHS=( "dv libdv" "jpeg libjpeg" "quicktime libquicktime" )
 
-DEFAULT_SRC_INSTALL_EXTRA_DOCS=( "AUTHORS ChangeLog NEWS README TODO" )
-
