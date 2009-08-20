@@ -21,6 +21,8 @@ DEPENDENCIES="
 "
 
 src_prepare() {
-    sed -e "s/Icon=skanlite/Icon=scanner/" -i skanlite.desktop # Fix the icon
+    # Fix the icon
+    sed -e "s:Icon=skanlite:Icon=scanner:" \
+        -i skanlite.desktop || die "sed skanlite.desktop failed"
 }
 
