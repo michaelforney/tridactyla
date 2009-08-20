@@ -5,6 +5,10 @@ SUMMARY="The Quasar DV Codec (libdv) is a software decoder for DV format video"
 HOMEPAGE="http://libdv.sourceforge.net/"
 DOWNLOADS="mirror://sourceforge/${PN}/${PNV}.tar.gz"
 
+REMOTE_IDS="sourceforge:${PN}"
+
+BUGS_TO="michael@obberon.com"
+
 LICENCES="LGPL-2.1"
 SLOT="0"
 PLATFORMS="~amd64"

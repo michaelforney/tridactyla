@@ -5,6 +5,8 @@ SUMMARY="Digital Video (DV) grabber for GNU/Linux"
 HOMEPAGE="http://www.kinodv.org/"
 DOWNLOADS="mirror://sourceforge/kino/${PNV}.tar.gz"
 
+BUGS_TO="michael@obberon.com"
+
 LICENCES="GPL-2"
 SLOT="0"
 PLATFORMS="~amd64"
