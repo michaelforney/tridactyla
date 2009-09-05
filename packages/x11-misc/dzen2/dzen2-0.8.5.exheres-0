@@ -23,7 +23,7 @@ DEPENDENCIES="
 
 option_define() {
     if optionq ${1} ; then
-        echo -DDZEN_${1} | tr [:lower:] [:upper:]
+        echo -DDZEN_${1^^}
     fi
 }
 
