@@ -1,0 +1,21 @@
+# Copyright 2009 Michael Forney
+# Distributed under the terms of the GNU General Public License v2
+
+SUMMARY="CreateTorrent is a small and fast command line utility to create BitTorrent files easily"
+DESCRIPTION="
+"
+HOMEPAGE="http://www.createtorrent.com"
+DOWNLOADS="http://www.createtorrent.com/${PNV}.tar.gz"
+
+BUGS_TO="michael@obberon.com"
+
+LICENCES="GPL-2"
+SLOT="0"
+PLATFORMS="~amd64"
+MYOPTIONS=""
+
+DEPENDENCIES="
+    build+run:
+        dev-libs/openssl
+"
+
