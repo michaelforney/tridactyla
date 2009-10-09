@@ -1,0 +1,49 @@
+# Copyright 2009 Michael Forney
+# Distributed under the terms of the GNU General Public License v2
+
+SUMMARY="NZBGet is a command-line based binary newsgrabber for nzb files"
+DESCRIPTION="
+"
+HOMEPAGE="http://nzbget.sourceforge.net/"
+DOWNLOADS="mirror://sourceforge/${PN}/${PNV}.tar.gz"
+
+BUGS_TO="michael@obberon.com"
+
+LICENCES="GPL-2"
+SLOT="0"
+PLATFORMS="~amd64"
+MYOPTIONS="
+    par2 [[ description = [ Support for checking files with libpar2 ] ]]
+
+    ( gnutls ssl ) [[ number-selected = at-most-one ]]
+"
+
+DEPENDENCIES="
+    build+run:
+        dev-libs/libxml2
+        sys-libs/ncurses
+
+        gnutls? ( dev-libs/gnutls )
+        par2? (
+            dev-cpp/libsigc++:2
+            app-arch/libpar2
+        )
+        ssl? ( dev-libs/openssl )
+"
+
+src_configure() {
+    local tlslib
+    if option gnutls ; then
+        tlslib=--with-tlslib=GnuTLS
+    elif option ssl ; then
+        tlslib=--with-tlslib=OpenSSL
+    else
+        tlslib=--disable-tls
+    fi
+
+    econf \
+        --enable-curses \
+        $(option_enable par2 parcheck) \
+        ${tlslib}
+}
+
