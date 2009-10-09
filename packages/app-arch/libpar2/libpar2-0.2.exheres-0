@@ -1,0 +1,23 @@
+# Copyright 2009 Michael Forney
+# Distributed under the terms of the GNU General Public License v2
+
+SUMMARY="A library for performing common tasks related to PAR recovery sets"
+DESCRIPTION="
+"
+HOMEPAGE="http://parchive.sourceforge.net/"
+DOWNLOADS="mirror://sourceforge/parchive/${PNV}.tar.gz"
+
+BUGS_TO="michael@obberon.com"
+
+LICENCES="GPL-2"
+SLOT="0"
+PLATFORMS="~amd64"
+MYOPTIONS=""
+
+DEPENDENCIES="
+    build+run:
+        dev-cpp/libsigc++:2
+"
+
+DEFAULT_SRC_CONFIGURE_PARAMS=( --hates=docdir )
+
