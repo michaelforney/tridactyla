@@ -16,7 +16,7 @@ SLOT="0"
 PLATFORMS="~amd64"
 
 DEPENDENCIES="
-    post,suggested:
+    suggestion:
         media-gfx/sane-backends
 "
 
