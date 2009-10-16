@@ -42,5 +42,9 @@ src_prepare() {
         -e "s:^\(CFLAGS =\).*:\1 -DVERSION=\\\\\"${PV}\\\\\" ${flags[@]} $(pkg-config --cflags ${libs[@]}) ${CFLAGS}:" \
         -e "s:^\(LDFLAGS =\).*:\1 $(pkg-config --libs ${libs[@]}) ${LDFLAGS}:" \
         -i "${WORK}"/config.mk || die "sed config.mk failed"
+
+    # Get rid of call to strip
+    sed -e "/^\t@strip \$@/d" \
+        -i "${WORK}"/Makefile || die "sed Makefile failed"
 }
 
