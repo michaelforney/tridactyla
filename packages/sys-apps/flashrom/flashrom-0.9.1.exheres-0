@@ -1,0 +1,25 @@
+# Copyright 2009 Michael Forney
+# Distributed under the terms of the GNU General Public License v2
+
+SUMMARY="flashrom is a utility for identifying, reading, writing, verifying and erasing flash chips"
+DESCRIPTION="
+"
+HOMEPAGE="http://flashrom.org"
+DOWNLOADS="http://qa.coreboot.org/releases/${PNV}.tar.bz2"
+
+BUGS_TO="michael@obberon.com"
+
+LICENCES="GPL-2"
+SLOT="0"
+PLATFORMS="~amd64"
+MYOPTIONS=""
+
+DEPENDENCIES="
+    build:
+        sys-apps/pciutils
+    build+run:
+        sys-libs/zlib
+"
+
+DEFAULT_SRC_INSTALL_PARAMS=( PREFIX=/usr )
+
