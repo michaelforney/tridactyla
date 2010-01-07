@@ -1,8 +1,6 @@
 # Copyright 2009 Michael Forney
 # Distributed under the terms of the GNU General Public License v2
 
-require multilib toolchain-funcs
-
 SUMMARY="A general purpose messaging and notification program"
 HOMEPAGE="http://gotmor.googlepages.com/dzen"
 DOWNLOADS="http://gotmor.googlepages.com/${PNV}.tar.gz"
@@ -38,7 +36,7 @@ src_prepare() {
         $(option_define xpm)
     )
     sed -e "s:^\(PREFIX =\).*:\1 /usr:" \
-        -e "s:^\(CC =\).*:\1 $(tc-getCC):" \
+        -e "s:^\(CC =\).*:\1 ${CC}:" \
         -e "s:^\(CFLAGS =\).*:\1 -DVERSION=\\\\\"${PV}\\\\\" ${flags[@]} $(pkg-config --cflags ${libs[@]}) ${CFLAGS}:" \
         -e "s:^\(LDFLAGS =\).*:\1 $(pkg-config --libs ${libs[@]}) ${LDFLAGS}:" \
         -i "${WORK}"/config.mk || die "sed config.mk failed"
