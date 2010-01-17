@@ -1,0 +1,31 @@
+# Copyright 2009 Michael Forney
+# Distributed under the terms of the GNU General Public License v2
+
+SUMMARY="Enca is an Extremely Naive Charset Analyser"
+HOMEPAGE="http://gitorious.org/enca/"
+DOWNLOADS="http://dl.cihar.com/${PN}/${PNV}.tar.bz2"
+
+REMOTE_IDS="freshmeat:${PN}"
+
+BUGS_TO="michael@obberon.com"
+
+LICENCES="GPL-2"
+SLOT="0"
+PLATFORMS="~amd64"
+MYOPTIONS="doc recode"
+
+DEPENDENCIES="
+    build:
+        doc? ( dev-doc/gtk-doc )
+    build+run:
+        recode? ( app-text/recode )
+    suggestion:
+        dev-lang/perl [[
+            description = [ For the external convertor, piconv ]
+        ]]
+"
+
+DEFAULT_SRC_CONFIGURE_PARAMS=( --enable-external )
+DEFAULT_SRC_CONFIGURE_OPTION_ENABLES=( "doc gtk-doc" )
+DEFAULT_SRC_CONFIGURE_OPTION_WITHS=( "recode librecode" )
+
