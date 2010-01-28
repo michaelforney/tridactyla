@@ -4,7 +4,7 @@
 SCM_REPOSITORY="svn://anonsvn.kde.org/home/kde"
 SCM_SUBPATH="/extragear/graphics/skanlite"
 
-require kde4 scm-svn
+require kde scm-svn
 
 SUMMARY="Skanlite is an image scanning application for KDE 4"
 HOMEPAGE="http://userbase.kde.org/Skanlite"
