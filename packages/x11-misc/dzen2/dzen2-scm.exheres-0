@@ -1,0 +1,63 @@
+# Copyright 2009 Michael Forney
+# Distributed under the terms of the GNU General Public License v2
+
+SUMMARY="A general purpose messaging and notification program"
+HOMEPAGE="http://gotmor.googlepages.com/dzen"
+
+SCM_REPOSITORY="http://dzen.googlecode.com/svn/"
+require scm-svn
+
+BUGS_TO="michael@obberon.com"
+
+LICENCES="MIT"
+SLOT="0"
+PLATFORMS="~amd64 ~x86"
+MYOPTIONS="xinerama xpm xft gadgets"
+
+DEPENDENCIES="
+    build+run:
+        x11-libs/libX11
+        xinerama? ( x11-libs/libXinerama )
+        xpm? ( x11-libs/libXpm )
+        xft? ( x11-libs/libXft )
+"
+
+option_define() {
+    if optionq ${1} ; then
+        echo -DDZEN_${1^^}
+    fi
+}
+
+src_prepare() {
+    local libs=(
+        x11
+        $(optionq xinerama && echo xinerama)
+        $(optionq xpm && echo xpm)
+        $(optionq xft && echo xft)
+    )
+    local flags=(
+        $(option_define xinerama)
+        $(option_define xpm)
+        $(option_define xft)
+    )
+    sed -e "s:^\(PREFIX =\).*:\1 /usr:" \
+        -e "s:^\(CC =\).*:\1 ${CC}:" \
+        -e "s:^\(CFLAGS =\).*:\1 -DVERSION=\\\\\"${PV}\\\\\" ${flags[@]} $(pkg-config --cflags ${libs[@]}) ${CFLAGS}:" \
+        -e "s:^\(LDFLAGS =\).*:\1 $(pkg-config --libs ${libs[@]}) ${LDFLAGS}:" \
+        -i "${WORK}"{,/gadgets}/config.mk || die "sed config.mk failed"
+
+    # Get rid of call to strip
+    sed -e "/^\t@strip \$@/d" \
+        -i "${WORK}"{,/gadgets}/Makefile || die "sed Makefile failed"
+}
+
+src_compile() {
+    emake
+    optionq gadgets && emake -C gadgets
+}
+
+src_install() {
+    emake -j1 DESTDIR="${IMAGE}" install
+    optionq gadgets && emake -j1 -C gadgets DESTDIR="${IMAGE}" install
+    emagicdocs
+}
