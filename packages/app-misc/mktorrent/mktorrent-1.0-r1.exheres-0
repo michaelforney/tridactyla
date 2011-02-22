@@ -1,11 +1,9 @@
 # Copyright 2009 Michael Forney
 # Distributed under the terms of the GNU General Public License v2
 
-SUMMARY="mktorrent is a simple command line utility to create BitTorrent metainfo files."
-DESCRIPTION="
-"
-HOMEPAGE="http://mktorrent.sourceforge.net"
-DOWNLOADS="mirror://sourceforge/${PN}/${PNV}.tar.gz"
+require sourceforge [ suffix=tar.gz ]
+
+SUMMARY="A simple command line utility to create BitTorrent metainfo files"
 
 BUGS_TO="michael@obberon.com"
 
