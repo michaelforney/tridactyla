@@ -4,8 +4,7 @@
 SUMMARY="A general purpose messaging and notification program"
 HOMEPAGE="http://gotmor.googlepages.com/dzen"
 
-SCM_REPOSITORY="http://dzen.googlecode.com/svn/"
-require scm-svn
+require github [ user=robm pn=dzen ]
 
 BUGS_TO="michael@obberon.com"
 
