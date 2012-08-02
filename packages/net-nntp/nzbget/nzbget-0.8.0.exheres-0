@@ -1,13 +1,16 @@
-# Copyright 2009 Michael Forney
+# Copyright 2009, 2012 Michael Forney
 # Distributed under the terms of the GNU General Public License v2
 
 SUMMARY="NZBGet is a command-line based binary newsgrabber for nzb files"
 DESCRIPTION="
+NZBGet is a command-line based binary newsgrabber for nzb files, written in C++. It supports
+client/server mode, automatic par-check/-repair and web-interface (via additional package). NZBGet
+requires low system resources and runs great on routers, NAS-devices and media players.
 "
 HOMEPAGE="http://nzbget.sourceforge.net/"
 DOWNLOADS="mirror://sourceforge/${PN}/${PNV}.tar.gz"
 
-BUGS_TO="michael@obberon.com"
+BUGS_TO="mforney@mforney.org"
 
 LICENCES="GPL-2"
 SLOT="0"
@@ -30,6 +33,8 @@ DEPENDENCIES="
         )
         ssl? ( dev-libs/openssl )
 "
+
+DEFAULT_SRC_INSTALL_EXTRA_DOCS=( nzbget.conf.example )
 
 src_configure() {
     local tlslib
