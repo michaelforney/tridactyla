@@ -1,7 +1,9 @@
 # Copyright 2012 Michael Forney
 # Distributed under the terms of the GNU General Public License v2
 
-require st
+SCM_REPOSITORY="git://git.suckless.org/st"
+
+require scm-git st
 
 PLATFORMS="~amd64"
 
