@@ -1,0 +1,37 @@
+# Copyright 2012 Michael Forney
+# Distributed under the terms of the GNU General Public License v2
+
+SUMMARY="st is a simple terminal implementation for X"
+HOMEPAGE="http://st.suckless.org/"
+DOWNLOADS="http://dl.suckless.org/${PN}/${PNV}.tar.gz"
+
+LICENCES="MIT"
+SLOT="0"
+PLATFORMS="~amd64"
+MYOPTIONS=""
+
+DEPENDENCIES="
+    build:
+        x11-proto/xproto
+    build+run:
+        media-libs/fontconfig
+        x11-libs/libX11
+        x11-libs/libXft
+        x11-libs/libXext
+"
+
+BUGS_TO="mforney@mforney.org"
+
+src_prepare() {
+    # Set the correct prefix
+    edo sed -e "s:PREFIX = /usr/local:PREFIX = /usr:" -i config.mk
+
+    # Respect global CFLAGS/LDFLAGS
+    edo sed -e "/^CFLAGS/{s|-Os||;s|-g||}" -i config.mk
+    edo sed -e "/^LDFLAGS/s|-g||" -i config.mk
+}
+
+src_install() {
+    TERMINFO="${IMAGE}"/usr/share/terminfo default
+}
+
