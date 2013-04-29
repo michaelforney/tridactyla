@@ -12,6 +12,7 @@ MYOPTIONS=""
 
 DEPENDENCIES="
     build:
+        virtual/pkg-config
         x11-proto/xproto
     build+run:
         media-libs/fontconfig
@@ -22,16 +23,14 @@ DEPENDENCIES="
 
 BUGS_TO="mforney@mforney.org"
 
-src_prepare() {
-    # Set the correct prefix
-    edo sed -e "s:PREFIX = /usr/local:PREFIX = /usr:" -i config.mk
+DEFAULT_SRC_INSTALL_PARAMS=(
+    PREFIX=/usr
+    TERMINFO="${IMAGE}"/usr/share/terminfo
+)
 
+src_prepare() {
     # Respect global CFLAGS/LDFLAGS
     edo sed -e "/^CFLAGS/{s|-Os||;s|-g||}" -i config.mk
     edo sed -e "/^LDFLAGS/s|-g||" -i config.mk
-}
-
-src_install() {
-    TERMINFO="${IMAGE}"/usr/share/terminfo default
 }
 
