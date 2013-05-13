@@ -29,7 +29,7 @@ DEPENDENCIES="
         gnutls? ( dev-libs/gnutls )
         par2? (
             dev-cpp/libsigc++:2
-            app-arch/libpar2
+            app-arch/libpar2[>=0.2-r1]
         )
         ssl? ( dev-libs/openssl )
 "
