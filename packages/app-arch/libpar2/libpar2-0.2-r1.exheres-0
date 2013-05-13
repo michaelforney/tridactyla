@@ -19,5 +19,9 @@ DEPENDENCIES="
         dev-cpp/libsigc++:2
 "
 
+DEFAULT_SRC_PREPARE_PATCHES=(
+    -p2 ${FILES}/${PNV}-bugfixes.patch
+    -p2 ${FILES}/${PNV}-cancel.patch
+)
 DEFAULT_SRC_CONFIGURE_PARAMS=( --hates=docdir )
 
