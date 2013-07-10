@@ -1,0 +1,49 @@
+# Copyright 2013 Michael Forney
+# Distributed under the terms of the GNU General Public License v2
+
+require autotools [ supported_autoconf=[ 2.5 ] supported_automake=[ 1.11 ] ] \
+        github [ user=michaelforney ]
+
+SUMMARY="WLD is a primitive drawing library targeted at Wayland"
+
+LICENCES="MIT"
+SLOT="0"
+PLATFORMS="~amd64"
+MYOPTIONS="
+    drm
+    wayland
+    video_drivers:
+        (
+            intel
+        ) [[ requires = [ drm ] ]]
+"
+
+DEPENDENCIES="
+    build+run:
+        x11-libs/pixman
+
+        drm? ( x11-dri/libdrm )
+        wayland? ( sys-libs/wayland )
+        video_drivers:intel? (
+            dev-libs/libintelbatch
+            x11-dri/libdrm[video_drivers:intel]
+        )
+"
+
+BUGS_TO="mforney@mforney.org"
+
+src_configure() {
+    DRM_DRIVERS=( )
+    WAYLAND_INTERFACES=( )
+
+    option video_drivers:intel      && DRM_DRIVERS+=( intel )
+    option drm && option wayland    && WAYLAND_INTERFACES+=( drm )
+    option wayland                  && WAYLAND_INTERFACES+=( shm )
+
+    econf                                                                       \
+        $(option_enable drm)                                                    \
+        --with-drm-drivers=$(IFS=, ; echo "${DRM_DRIVERS[*]}")                  \
+        $(option_enable wayland)                                                \
+        --with-wayland-interfaces=$(IFS=, ; echo "${WAYLAND_INTERFACES[*]}")
+}
+
