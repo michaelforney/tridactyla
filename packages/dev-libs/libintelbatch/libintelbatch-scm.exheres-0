@@ -1,0 +1,20 @@
+# Copyright 2013 Michael Forney
+# Distributed under the terms of the GNU General Public License v2
+
+require autotools [ supported_autoconf=[ 2.5 ] supported_automake=[ 1.11 ] ] \
+        github [ user=michaelforney ]
+
+SUMMARY="An implementation of some Intel Graphics batch operations"
+
+LICENCES="MIT"
+SLOT="0"
+PLATFORMS="~amd64"
+MYOPTIONS=""
+
+DEPENDENCIES="
+    build+run:
+        x11-dri/libdrm[video_drivers:intel]
+"
+
+BUGS_TO="mforney@mforney.org"
+
