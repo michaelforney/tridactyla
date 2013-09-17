@@ -1,11 +1,9 @@
 # Copyright 2009 Michael Forney
 # Distributed under the terms of the GNU General Public License v2
 
+require sourceforge gtk-icon-cache
+
 SUMMARY="Klavaro is just another free touch typing tutor program"
-DESCRIPTION="
-"
-HOMEPAGE="http://klavaro.sourceforge.net/en/"
-DOWNLOADS="mirror://sourceforge/${PN}/${PNV}.tar.bz2"
 
 BUGS_TO="michael@obberon.com"
 
@@ -15,10 +13,13 @@ PLATFORMS="~amd64"
 MYOPTIONS=""
 
 DEPENDENCIES="
+    build:
+        dev-util/intltool[>=0.23]
+        sys-devel/gettext[>=0.18]
+        virtual/pkg-config
     build+run:
         net-misc/curl[>=2.18.12]
         x11-libs/gtk+:2[>=2.12.11]
         x11-libs/gtkdatabox[>=0.9.0.0]
-        x11-libs/libsexy[>=0.1.11]
 "
 
