@@ -6,7 +6,7 @@ require sourceforge [ suffix=tar.gz ]
 SUMMARY="GtkDatabox is a widget for live display of large amounts of fluctuating numerical data"
 HOMEPAGE="http://sourceforge.net/projects/gtkdatabox/"
 
-BUGS_TO="michael@obberon.com"
+BUGS_TO="mforney@mforney.org"
 
 LICENCES="LGPL-2.1"
 SLOT="0"

@@ -5,7 +5,7 @@ require sourceforge gtk-icon-cache
 
 SUMMARY="Klavaro is just another free touch typing tutor program"
 
-BUGS_TO="michael@obberon.com"
+BUGS_TO="mforney@mforney.org"
 
 LICENCES="GPL-3"
 SLOT="0"

@@ -5,7 +5,7 @@ require sourceforge [ suffix=tar.gz ]
 
 SUMMARY="A simple command line utility to create BitTorrent metainfo files"
 
-BUGS_TO="michael@obberon.com"
+BUGS_TO="mforney@mforney.org"
 
 LICENCES="GPL-2"
 SLOT="0"
