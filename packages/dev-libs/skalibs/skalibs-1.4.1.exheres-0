@@ -1,0 +1,28 @@
+# Copyright 2013 Michael Forney
+# Distributed under the terms of the GNU General Public License v2
+
+require skaware [ category=prog ]
+
+SUMMARY="skalibs is a package containing general-purpose libraries"
+DESCRIPTION="
+skalibs is a package centralizing the free software / open source C development files used for
+building all software at skarnet.org: it contains essentially general-purpose libraries. You will
+need to install skalibs if you plan to build skarnet.org software. The point is that you won't have
+to download and compile big libraries everytime you need to build a package: do it only once.
+
+skalibs can also be used as a sound basic start for C development. There are a lot of
+general-purpose libraries out there; but if your main goal is to produce small and secure C code,
+you will like skalibs.
+"
+
+LICENCES="ISC"
+SLOT="0"
+PLATFORMS="~amd64"
+MYOPTIONS="ipv6"
+
+DEPENDENCIES=""
+
+BUGS_TO="mforney@mforney.org"
+
+SKAWARE_SRC_CONFIGURE_OPTIONS=( "!ipv6 noipv6" )
+
