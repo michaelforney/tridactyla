@@ -1,0 +1,28 @@
+# Copyright 2013 Michael Forney
+# Distributed under the terms of the GNU General Public License v2
+
+require skaware [ category=admin ]
+
+SUMMARY="execline is a (non-interactive) scripting language"
+DESCRIPTION="
+execline is a (non-interactive) scripting language, like sh ; but its syntax is quite different from
+a traditional shell syntax. The execlineb program is meant to be used as an interpreter for a text
+file; the other commands are essentially useful inside an execlineb script.
+
+execline is now as powerful as a shell: it features conditional loops, getopt-style option handling,
+filename globbing, and more. Meanwhile, its syntax is far more logic and predictable than the
+shell's syntax, and has no security issues.
+"
+
+LICENCES="ISC"
+SLOT="0"
+PLATFORMS="~amd64"
+MYOPTIONS=""
+
+DEPENDENCIES="
+    build+run:
+        dev-libs/skalibs[>=1.4.1]
+"
+
+BUGS_TO="mforney@mforney.org"
+
