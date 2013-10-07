@@ -1,0 +1,20 @@
+# Copyright 2013 Michael Forney
+# Distributed under the terms of the GNU General Public License v2
+
+require skaware [ category=admin ]
+
+SUMMARY="s6 is a small suite of process supervision programs"
+
+LICENCES="ISC"
+SLOT="0"
+PLATFORMS="~amd64"
+MYOPTIONS=""
+
+DEPENDENCIES="
+    build+run:
+        dev-lang/execline[>=1.2.2]
+        dev-libs/skalibs[>=1.4.0]
+"
+
+BUGS_TO="mforney@mforney.org"
+
