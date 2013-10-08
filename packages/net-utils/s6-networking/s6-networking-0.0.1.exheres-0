@@ -1,0 +1,22 @@
+# Copyright 2013 Michael Forney
+# Distributed under the terms of the GNU General Public License v2
+
+require skaware [ category=net ]
+
+SUMMARY="s6-networking is a suite of small networking utilities for Unix systems"
+
+LICENCES="ISC"
+SLOT="0"
+PLATFORMS="~amd64"
+MYOPTIONS=""
+
+DEPENDENCIES="
+    build+run:
+        dev-libs/skalibs[>=1.4.0]
+        net-dns/s6-dns[>=0.0.1]
+"
+
+BUGS_TO="mforney@mforney.org"
+
+DEFAULT_SRC_PREPARE_PATCHES=( "${FILES}"/fix-export-list.patch )
+

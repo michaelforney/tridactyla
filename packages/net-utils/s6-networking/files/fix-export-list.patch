@@ -1,0 +1,10 @@
+--- a/package/command.exported	2013-10-08 12:06:15.838294557 +0000
++++ b/package/command.exported	2013-10-08 12:06:24.324294557 +0000
+@@ -1,7 +1,6 @@
+ s6-connlimit
+ s6-getservbyname
+ s6-ioconnect
+-s6-ioconnect-select
+ s6-ident-client
+ s6-ipcclient
+ s6-ipcserver
