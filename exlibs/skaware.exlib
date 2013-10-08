@@ -1,0 +1,98 @@
+# Copyright 2013 Michael Forney
+# Distributed under the terms of the GNU General Public License v2
+
+myexparam category
+
+export_exlib_phases src_configure src_compile src_install
+
+HOMEPAGE="http://skarnet.org/software/${PN}/"
+DOWNLOADS="http://skarnet.org/software/${PN}/${PNV}.tar.gz"
+MYOPTIONS="static"
+
+WORK="${WORKBASE}"/$(exparam category)/${PNV}
+
+skaware_src_configure() {
+    # Tools
+    skaware_set conf-cc             "${CC} ${CFLAGS}"
+    skaware_set conf-ld             "${CC} ${CFLAGS}"
+    skaware_set conf-dynld          "${CC} ${CFLAGS}"
+    skaware_set conf-stripbins      ""
+    skaware_set conf-striplibs      ""
+    skaware_set conf-default_path   ""
+
+    # Build paths
+    skaware_set path-include        /usr/include
+    skaware_set path-library        /usr/${LIBDIR}
+    skaware_set path-library.so     /usr/${LIBDIR}
+
+    # Install paths
+    skaware_install_path command    /usr/bin
+    skaware_install_path include    /usr/include
+    skaware_install_path library    /usr/${LIBDIR}
+    skaware_install_path library.so /usr/${LIBDIR}
+    skaware_install_path sysdeps    /usr/${LIBDIR}/${PN}
+
+    if [[ -f conf-compile/conf-etc ]] ; then
+        skaware_set conf-etc        "${IMAGE}"/etc
+    fi
+
+    # Flags
+    skaware_flag                    forcedevr
+    skaware_flag                    !slashpackage
+    skaware_option                  static allstatic
+
+    # Dependencies
+    if [[ -f conf-compile/import ]] ; then
+        edo sed -e "s:\$SP_ROOT/package/.*/\(.*\)/sysdeps:/usr/${LIBDIR}/\1:" \
+                -i conf-compile/import
+    fi
+
+    for s in "${SKAWARE_SRC_CONFIGURE_FLAGS[@]}" ; do
+        skaware_flag ${s}
+    done
+
+    for s in "${SKAWARE_SRC_CONFIGURE_OPTIONS[@]}" ; do
+        skaware_option ${s}
+    done
+
+    edo package/prepare
+    edo package/configure
+}
+
+skaware_src_compile() {
+    edo package/compile
+}
+
+skaware_src_install() {
+    [[ -f conf-compile/conf-etc ]] && dodir /etc
+    edo package/export
+}
+
+skaware_set() {
+    illegal_in_global_scope
+
+    echo "${2}" > conf-compile/${1} || die "failed to set conf-compile/${1}"
+    echo "conf-compile/${1}: ${2}"
+}
+
+skaware_install_path() {
+    skaware_set conf-install-${1} "${IMAGE}"/${2}
+}
+
+skaware_flag() {
+    illegal_in_global_scope
+
+    if [[ "${1:0:1}" == "!" ]] ; then
+        edo rm -f conf-compile/flag-${1#!}
+    else
+        edo touch conf-compile/flag-${1#!}
+    fi
+}
+
+skaware_option() {
+    illegal_in_global_scope
+
+    [[ -n "${1}" ]] || die "skaware_option <option flag> [<flag name>]"
+    skaware_flag "$(option "${1}" "" !)${2:-$(optionfmt ${1})}"
+}
+
