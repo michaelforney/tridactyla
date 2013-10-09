@@ -20,6 +20,8 @@ MYOPTIONS="
 
 DEPENDENCIES="
     build+run:
+        media-libs/fontconfig
+        media-libs/freetype:2
         x11-libs/pixman
 
         drm? ( x11-dri/libdrm )
