@@ -1,0 +1,42 @@
+# Copyright 2013 Michael Forney
+# Distributed under the terms of the GNU General Public License v2
+
+require alternatives github [ user=michaelforney ]
+
+SUMMARY="supervisor-extras is a collection of scripts and stuff for service supervisors"
+
+LICENCES="MIT"
+SLOT="0"
+PLATFORMS="~amd64"
+MYOPTIONS="perp s6 udev"
+
+DEPENDENCIES="
+    run:
+        udev? ( sys-apps/systemd )
+    recommendation:
+        perp? ( sys-apps/perp )
+        s6? ( sys-apps/s6 )
+"
+
+BUGS_TO="mforney@mforney.org"
+
+DEFAULT_SRC_COMPILE_PARAMS=( STARTUP_COMMAND=/etc/rc RECOVER_COMMAND=/bin/bash )
+
+src_install() {
+    local supervisors=( $(optionv perp) $(optionv s6) ) alternatives=( init ${PN} 20 )
+
+    emake install                       \
+        DESTDIR="${IMAGE}"              \
+        SBINDIR=/sbin                   \
+        DOCDIR=/usr/share/doc/${PNVR}   \
+        SUPERVISORS="${supervisors[*]}" \
+        ENABLE_UDEV=$(option udev 1 0)
+
+    local a
+    for a in init reboot poweroff ; do
+        alternatives+=( /sbin/${a} /sbin/${PN}.${a} )
+    done
+
+    alternatives_for "${alternatives[@]}"
+}
+
