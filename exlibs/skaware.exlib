@@ -21,13 +21,14 @@ skaware_src_configure() {
     skaware_set conf-default_path   ""
 
     # Build paths
-    skaware_set path-include        /usr/include
+    skaware_set path-include        /usr/include/skaware \
+                                    /usr/include
     skaware_set path-library        /usr/${LIBDIR}
     skaware_set path-library.so     /usr/${LIBDIR}
 
     # Install paths
     skaware_install_path command    /usr/bin
-    skaware_install_path include    /usr/include
+    skaware_install_path include    /usr/include/skaware
     skaware_install_path library    /usr/${LIBDIR}
     skaware_install_path library.so /usr/${LIBDIR}
     skaware_install_path sysdeps    /usr/${LIBDIR}/${PN}
