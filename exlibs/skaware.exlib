@@ -71,8 +71,19 @@ skaware_src_install() {
 skaware_set() {
     illegal_in_global_scope
 
-    echo "${2}" > conf-compile/${1} || die "failed to set conf-compile/${1}"
-    echo "conf-compile/${1}: ${2}"
+    local conf_file="conf-compile/${1}"
+
+    shift
+    IFS=\n echo "${*}" > conf-compile/${1} || die "failed to set ${conf_file}"
+
+    if [[ ${#} == 1 ]] ; then
+        echo "${conf_file}: ${1}"
+    else
+        echo "${conf_file}:"
+        for value in "${@}" ; do
+            echo "    ${value}"
+        done
+    fi
 }
 
 skaware_install_path() {
