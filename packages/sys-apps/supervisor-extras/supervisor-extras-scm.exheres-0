@@ -26,18 +26,19 @@ BUGS_TO="mforney@mforney.org"
 DEFAULT_SRC_COMPILE_PARAMS=( STARTUP_COMMAND=/etc/rc RECOVER_COMMAND=/bin/bash )
 
 src_install() {
+    local host=$(exhost --target)
     local supervisors=( $(optionv perp) $(optionv s6) ) alternatives=( init ${PN} 20 )
 
     emake install                       \
         DESTDIR="${IMAGE}"              \
-        SBINDIR=/sbin                   \
+        SBINDIR=/usr/${host}/sbin       \
         DOCDIR=/usr/share/doc/${PNVR}   \
         SUPERVISORS="${supervisors[*]}" \
         ENABLE_UDEV=$(option udev 1 0)
 
     local a
     for a in init reboot poweroff ; do
-        alternatives+=( /sbin/${a} /sbin/${PN}.${a} )
+        alternatives+=( /usr/${host}/sbin/${a} /usr/${host}/sbin/${PN}.${a} )
     done
 
     alternatives_for "${alternatives[@]}"
