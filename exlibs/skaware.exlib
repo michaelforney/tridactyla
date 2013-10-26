@@ -75,7 +75,7 @@ skaware_set() {
     local conf_file="conf-compile/${1}"
 
     shift
-    IFS=\n echo "${*}" > conf-compile/${1} || die "failed to set ${conf_file}"
+    ( IFS=$'\n'; echo "${*}" ) > "${conf_file}" || die "failed to set ${conf_file}"
 
     if [[ ${#} == 1 ]] ; then
         echo "${conf_file}: ${1}"
