@@ -1,0 +1,24 @@
+# Copyright 2013 Michael Forney
+# Distributed under the terms of the GNU General Public License v2
+
+SCM_REPOSITORY="http://pp.info.uni-karlsruhe.de/git/${PN}.git"
+
+# libfirm is packaged separately, but because cparser includes libfirm as a submodule, we need to
+# include it so scm-git.exlib can check out the main repository correctly.
+SCM_SECONDARY_REPOSITORIES="libfirm"
+SCM_libfirm_REPOSITORY="http://pp.info.uni-karlsruhe.de/git/libfirm.git"
+SCM_EXTERNAL_REFS="libfirm:libfirm"
+
+require cparser scm-git
+
+PLATFORMS="~amd64"
+
+DEPENDENCIES="
+    build+run:
+        dev-lang/libfirm[~scm]
+"
+
+src_prepare() {
+    edo rm -r libfirm
+}
+
