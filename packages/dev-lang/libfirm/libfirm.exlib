@@ -1,0 +1,38 @@
+# Copyright 2013 Michael Forney
+# Distributed under the terms of the GNU General Public License v2
+
+SUMMARY="libFirm provides intermediate representation, optimizations, and code generation suitable for use in compilers"
+DESCRIPTION="
+libFirm is a C library implementing the Firm low-level intermediate representation. Firm is used to
+represent a computer program in order to analyse and transform it. Its main application is compiler
+construction where we use it to represent, optimize and transform C and Java programs to native
+machine code.
+
+The most important features of Firm are that it is
+
+    * low-level which means that the representation of the program is closer to machine code than to
+      the language.
+    * completely graph based which means that there are no instruction lists or triple code, only
+      data dependence and control flow graphs.
+    * completely SSA based which means that the code of the program is always in SSA form.
+"
+HOMEPAGE="http://pp.ipd.kit.edu/firm/"
+
+if ! ever is_scm ; then
+    DOWNLOADS="mirror://sourceforge/${PN}/${PNV}.tar.bz2"
+fi
+
+LICENCES="LGPL-2.1"
+SLOT="0"
+MYOPTIONS=""
+
+DEPENDENCIES="
+    build:
+        dev-lang/perl
+        dev-lang/python[>=2.4]
+"
+
+BUGS_TO="mforney@mforney.org"
+REMOTE_IDS="sourceforge:${PN}"
+UPSTREAM_DOCUMENTATION="http://pp.ipd.kit.edu/firm/Documentation"
+

@@ -1,0 +1,49 @@
+# Copyright 2013 Michael Forney
+# Distributed under the terms of the GNU General Public License v2
+
+SCM_REPOSITORY="http://pp.info.uni-karlsruhe.de/git/${PN}.git"
+
+require libfirm scm-git flag-o-matic
+
+PLATFORMS="~amd64"
+
+src_configure() {
+    append-flags -D_BSD_SOURCE
+    edo cat > config.mak << EOF
+V = 1
+CC = ${CC}
+CFLAGS = ${CFLAGS}
+variant = release
+EOF
+}
+
+src_compile() {
+    emake all build/release/libfirm.a
+}
+
+src_install() {
+    local libfirm=$(git describe --tags)
+
+    # autotools build support is not maintained upstream, and the Makefile provides no install
+    # target, so we have to do installation ourselves.
+    dolib build/release/libfirm.a
+    newlib.so build/release/libfirm.so ${libfirm}.so
+    dosym ${libfirm}.so /usr/${LIBDIR}/libfirm.so
+
+    insinto /usr/include/libfirm
+    doins {build/gen/,}include/libfirm/*.h
+
+    insinto /usr/include/libfirm/adt
+    doins include/libfirm/adt/*.h
+
+    insinto /usr/${LIBDIR}/pkgconfig
+    edo sed -e "/prefix/d"                          \
+            -e "/exec_prefix/d"                     \
+            -e "s:@libdir@:/usr/${LIBDIR}:"         \
+            -e "s:@includedir@:/usr/include:"       \
+            -e "s:@VERSION@:${libfirm#libfirm-}:"   \
+            libfirm.pc.in | hereins libfirm.pc
+
+    emagicdocs
+}
+

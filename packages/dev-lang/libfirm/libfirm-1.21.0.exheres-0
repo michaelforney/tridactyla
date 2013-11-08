@@ -1,0 +1,12 @@
+# Copyright 2013 Michael Forney
+# Distributed under the terms of the GNU General Public License v2
+
+require libfirm flag-o-matic
+
+PLATFORMS="~amd64"
+
+src_configure() {
+    append-flags -D_BSD_SOURCE
+    default
+}
+
