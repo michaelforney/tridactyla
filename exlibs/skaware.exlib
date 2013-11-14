@@ -16,7 +16,7 @@ skaware_src_prepare() {
 ranlib="`head -n 1 conf-ranlib`"'           \
             -e "s,'ar cr,\"\$ar\"' cr,"     \
             -e "s,'ranlib,\"\$ranlib\"',"   \
-            -i "${WORK}"/src/sys/make-makelib
+            -i src/sys/make-makelib
 
     default
 }
