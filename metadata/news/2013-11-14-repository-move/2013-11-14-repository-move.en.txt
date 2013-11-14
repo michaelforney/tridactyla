@@ -1,0 +1,8 @@
+Title: ::tridactyla moved to git.exherbo.org
+Author: Michael Forney <mforney@mforney.org>
+Content-Type: text/plain
+Posted: 2013-11-14
+Revision: 1
+News-Item-Format: 1.0
+
+This repository has moved to git://git.exherbo.org/dev/tridactyla.git
