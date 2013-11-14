@@ -13,8 +13,11 @@ MYOPTIONS="perp s6 udev"
 DEPENDENCIES="
     run:
         udev? ( sys-apps/systemd )
-    recommendation:
-        perp? ( sys-apps/perp )
+        perp? (
+            sys-apps/perp
+            group/tinylog
+            user/tinylog
+        )
         s6? ( sys-apps/s6 )
 "
 
